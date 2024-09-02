@@ -31,7 +31,7 @@ class GameService {
   }
 
   async claimGame(user, gameId) {
-    const points = generatorHelper.randomInt(1800, 2200);
+    const points = generatorHelper.randomInt(180, 200);
     const body = { gameId, points };
     try {
       const { data } = await user.http.post(0, "game/claim", body);

@@ -53,8 +53,13 @@
 > - Vì server nó hay lỗi vào khung giờ 14h-24h nên khuyến khích ae chạy tool lần đầu vào khung giờ 4h-12h để chạy mượt mà nhé
 ## 🔄 Lịch sử cập nhật
 
-> Phiên bản mới nhất: `v0.0.1`
+> Phiên bản mới nhất: `v0.0.2`
 
+<details>
+<summary>v0.0.2 - 📅 02/09/2024</summary>
+  
+- Điều chỉnh điểm point chơi game về đúng với thực tế (từ 180 - 200)
+</details>
 <details>
 <summary>v0.0.1 - 📅 02/09/2024</summary>
   

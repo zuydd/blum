@@ -14,7 +14,7 @@ class AuthService {
     };
     try {
       const { data } = await user.http.post(
-        1,
+        3,
         "auth/provider/PROVIDER_TELEGRAM_MINI_APP",
         body
       );

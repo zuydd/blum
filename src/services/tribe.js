@@ -5,7 +5,7 @@ class TribeService {
 
   async getInfo(user) {
     try {
-      const { data } = await user.http.get(3, "tribe/my");
+      const { data } = await user.http.get(2, "tribe/my");
       if (data) {
         return true;
       } else {
@@ -26,7 +26,7 @@ class TribeService {
   async joinTribe(user, tribeId = "642e3141-5536-4d2f-9a5f-a62a35ede62c") {
     const endpoint = `tribe/${tribeId}/join`;
     try {
-      const { data } = await user.http.post(3, endpoint, {});
+      const { data } = await user.http.post(2, endpoint, {});
       if (data) {
         user.log.log(
           "Tham gia thành công Tribe: " + colors.rainbow("Thỏ Bảy Màu") + " 🌈"

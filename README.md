@@ -53,8 +53,13 @@
 > - Vì server nó hay lỗi vào khung giờ 14h-24h nên khuyến khích ae chạy tool lần đầu vào khung giờ 4h-12h để chạy mượt mà nhé
 ## 🔄 Lịch sử cập nhật
 
-> Phiên bản mới nhất: `v0.0.2`
+> Phiên bản mới nhất: `v0.0.3`
 
+<details>
+<summary>v0.0.3 - 📅 05/09/2024</summary>
+  
+- Thay đổi API login
+</details>
 <details>
 <summary>v0.0.2 - 📅 02/09/2024</summary>
   

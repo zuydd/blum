@@ -3,21 +3,36 @@ import colors from "colors";
 class TaskService {
   constructor() {}
 
+  removeDuplicatesTask(arr) {
+    const seen = new Set();
+    return arr.filter((item) => {
+      if (seen.has(item.id)) {
+        return false;
+      }
+      seen.add(item.id);
+      return true;
+    });
+  }
+
   async getTaskList(user) {
-    const skipTasks = [""];
+    const skipTasks = ["39391eb2-f031-4954-bd8a-e7aecbb1f192"];
     try {
       const { data } = await user.http.get(0, "tasks");
       if (data) {
+        const dataTasks = data[0].subSections;
+
         let tasks = [];
-        for (const item of data) {
+        for (const item of dataTasks) {
           tasks = tasks.concat(item.tasks);
         }
-        return tasks.filter(
+
+        const taskFilter = tasks.filter(
           (task) =>
-            !skipTasks.includes(task.name) &&
+            !skipTasks.includes(task.id) &&
             task.status !== "FINISHED" &&
             !task.isHidden
         );
+        return this.removeDuplicatesTask(taskFilter);
       } else {
         throw new Error(`Lấy danh sách nhiệm vụ thất bại: ${data?.message}`);
       }

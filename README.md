@@ -32,8 +32,8 @@
 
 ## >\_ Các lệnh và chức năng tương ứng
 
-| Lệnh            | Chức năng                                                                                                                                 |
-| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Lệnh            | Chức năng                                                                                                                  |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------- |
 | `npm run start` | Dùng để chạy farming/claim, làm nhiệm vụ, điểm danh, chơi game, claim điểm invite,.... tóm lại game có gì là nó làm cái đó |
 
 ## 🕹️ Các tính năng có trong tool
@@ -49,12 +49,19 @@
 - Mặc định ở vòng lặp đầu tiên mỗi tài khoản (luồng) sẽ chạy cách nhau 30s để tránh spam request, có thể tìm biến `DELAY_ACC = 30` trong file [index.js](src/run/index.js) để điều chỉnh cho phù hợp
 
 > [!WARNING]
+>
 > - Nếu gặp lỗi đăng nhập, làm nhiệm vụ hay chơi game thì là do server của blum nó lỏ chứ không phải lỗi tool, cứ kệ nó, hồi nó quay lại làm sau khi hết lỗi.
 > - Vì server nó hay lỗi vào khung giờ 14h-24h nên khuyến khích ae chạy tool lần đầu vào khung giờ 4h-12h để chạy mượt mà nhé
+
 ## 🔄 Lịch sử cập nhật
 
-> Phiên bản mới nhất: `v0.0.3`
+> Phiên bản mới nhất: `v0.0.4`
 
+<details>
+<summary>v0.0.4 - 📅 07/09/2024</summary>
+  
+- Cập nhật lại data task, fix lỗi không làm task
+</details>
 <details>
 <summary>v0.0.3 - 📅 05/09/2024</summary>
   

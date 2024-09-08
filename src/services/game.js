@@ -1,6 +1,7 @@
 import colors from "colors";
 import delayHelper from "../helpers/delay.js";
 import generatorHelper from "../helpers/generator.js";
+import authService from "./auth.js";
 
 class GameService {
   constructor() {}
@@ -52,6 +53,8 @@ class GameService {
   }
 
   async handleGame(user, playPasses) {
+    const profile = await authService.getProfile(user);
+    if (profile) playPasses = profile?.playPasses;
     user.log.log(`Còn ${colors.blue(playPasses + " lượt")} chơi game`);
     let gameCount = playPasses || 0;
     let errorCount = 0;

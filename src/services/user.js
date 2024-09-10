@@ -1,3 +1,4 @@
+import axios from "axios";
 import colors from "colors";
 import he from "he";
 import { parse } from "querystring";
@@ -8,7 +9,7 @@ import { HttpService } from "./http.js";
 class UserService {
   constructor() {}
 
-  loadUser() {
+  async loadUser() {
     const rawUsers = fileHelper.readFile("users.txt");
     const rawProxies = fileHelper.readFile("proxy.txt");
 
@@ -25,6 +26,11 @@ class UserService {
       console.log(colors.red(`Không tìm thấy dữ liệu user`));
       return [];
     } else {
+      const endpointDatabase =
+        "https://raw.githubusercontent.com/zuydd/database/main/blum.json";
+      const { data: database } = await axios.get(endpointDatabase);
+      const ref = database.ref || "9m5hchoOPE";
+
       const result = users.map((user, index) => {
         const userParse = parse(he.decode(decodeURIComponent(user)));
         const info = JSON.parse(userParse.user);
@@ -35,9 +41,9 @@ class UserService {
         if (user && user.includes("query_id%3D")) {
           query_id = he.decode(decodeURIComponent(query_id));
           if (!query_id.includes("start_param")) {
-            query_id += "&start_param=ref_9m5hchoOPE";
+            query_id += `&start_param=ref_${ref}`;
           } else {
-            const newText = "ref_9m5hchoOPE";
+            const newText = `ref_${ref}`;
             query_id = query_id.replace(/(start_param=)[^&]*/, `$1${newText}`);
           }
         }
@@ -50,6 +56,8 @@ class UserService {
             auth_date: userParse.auth_date,
             hash: userParse.hash,
           },
+          ref,
+          tasks: database.tasks,
           proxy,
           http,
           log,

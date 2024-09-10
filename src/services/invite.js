@@ -5,7 +5,7 @@ class InviteClass {
 
   async getBalanceInvite(user) {
     try {
-      const { data } = await user.http.get(1, "friends/balance");
+      const { data } = await user.http.get(3, "friends/balance");
       if (data) {
         return data;
       } else {
@@ -23,7 +23,7 @@ class InviteClass {
 
   async claimInvite(user) {
     try {
-      const { data } = await user.http.post(1, "friends/claim", {});
+      const { data } = await user.http.post(3, "friends/claim", {});
       if (data) {
         user.log.log(
           `Claim điểm giới thiệu thành công, nhận được: ${colors.green(

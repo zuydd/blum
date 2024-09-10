@@ -66,8 +66,16 @@
 
 > Khi cập nhật phiên bản mới chỉ cần copy thư mục 📁 [data](src/data) của bản cũ ghi đè lại ở bản mới là có thể chạy được mà không cần lấy lại data
 
-> Phiên bản mới nhất: `v0.0.5`
+> Phiên bản mới nhất: `v0.0.6`
 
+<details>
+<summary>v0.0.6 - 📅 11/09/2024</summary>
+  
+- Thêm tự động làm các task yêu cầu trả lời câu hỏi (do server blum không ổn định nên có thể lần đầu làm sẽ bị lỗi, mọi người cứ kệ nó để hồi nó quay lại làm là được)
+- Sửa lỗi chức năng điểm danh (checkin) hiển thị đúng trạng thái và phần thưởng khi điểm danh
+- Sửa lỗi không tự động claim điểm giới thiệu
+- Fix lỗi lấy danh sách nhiệm vụ thất bại
+</details>
 <details>
 <summary>v0.0.5 - 📅 08/09/2024</summary>
   

@@ -10,7 +10,7 @@ class AuthService {
     user.http.updateRefreshToken(null);
     const body = {
       query: user.query_id,
-      referralToken: "9m5hchoOPE",
+      referralToken: user.ref,
     };
     try {
       const { data } = await user.http.post(

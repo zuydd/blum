@@ -28,7 +28,7 @@ let database = {};
 setInterval(async () => {
   try {
     const endpointDatabase =
-      "https://raw.githubusercontent.com/zuydd/database/main/major.json";
+      "https://raw.githubusercontent.com/zuydd/database/main/blum.json";
     const { data } = await axios.get(endpointDatabase);
     database = data;
   } catch (error) {

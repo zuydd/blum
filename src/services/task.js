@@ -57,10 +57,24 @@ class TaskService {
   async verifyTask(user, task) {
     let taskName = task.title;
     const param = `tasks/${task.id}/validate`;
+    if (!user.tasks) {
+      user.log.log(
+        colors.yellow(
+          `Nhiệm vụ ${colors.blue(
+            taskName
+          )} chưa có câu trả lời, chờ làm lại sau`
+        )
+      );
+      return;
+    }
     const taskDatabase = user.tasks.find((t) => t.id === task.id);
     if (!taskDatabase) {
-      user.log.logError(
-        `Nhiệm vụ ${colors.blue(taskName)} chưa có câu trả lời, chờ làm lại sau`
+      user.log.log(
+        colors.yellow(
+          `Nhiệm vụ ${colors.blue(
+            taskName
+          )} chưa có câu trả lời, chờ làm lại sau`
+        )
       );
       return;
     }

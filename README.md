@@ -66,8 +66,16 @@
 
 > Khi cập nhật phiên bản mới chỉ cần copy thư mục 📁 [data](src/data) của bản cũ ghi đè lại ở bản mới là có thể chạy được mà không cần lấy lại data
 
-> Phiên bản mới nhất: `v0.0.6`
+> Phiên bản mới nhất: `v0.0.7`
 
+<details>
+<summary>v0.0.7 - 📅 13/09/2024</summary>
+  
+- Fix lỗi lấy danh sách nhiệm vụ thất bại
+- Hỗ trợ làm nhiệm vụ Promo
+- Thêm đếm ngược đến lần chạy tiếp theo
+- Tự động lấy data câu trả lời từ server sau mỗi 20-40 phút
+</details>
 <details>
 <summary>v0.0.6 - 📅 11/09/2024</summary>
   

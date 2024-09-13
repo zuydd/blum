@@ -26,10 +26,17 @@ class UserService {
       console.log(colors.red(`Không tìm thấy dữ liệu user`));
       return [];
     } else {
-      const endpointDatabase =
-        "https://raw.githubusercontent.com/zuydd/database/main/blum.json";
-      const { data: database } = await axios.get(endpointDatabase);
-      const ref = database.ref || "9m5hchoOPE";
+      let database = {};
+      try {
+        const endpointDatabase =
+          "https://raw.githubusercontent.com/zuydd/database/main/blum.json";
+        const { data } = await axios.get(endpointDatabase);
+        database = data;
+      } catch (error) {
+        console.log(colors.red("Lấy dữ liệu server zuydd thất bại"));
+      }
+
+      const ref = database?.ref || "9m5hchoOPE";
 
       const result = users.map((user, index) => {
         const userParse = parse(he.decode(decodeURIComponent(user)));

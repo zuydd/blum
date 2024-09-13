@@ -15,7 +15,7 @@ import tribeService from "../services/tribe.js";
 import userService from "../services/user.js";
 
 // Điều chỉnh khoảng cách thời gian chạy vòng lặp đầu tiên giữa các luồng tránh bị spam request (tính bằng giây)
-const DELAY_ACC = 30;
+const DELAY_ACC = 10;
 // Đặt số lần thử kết nối lại tối đa khi proxy lỗi, nếu thử lại quá số lần cài đặt sẽ dừng chạy tài khoản đó và ghi lỗi vào file log
 const MAX_RETRY_PROXY = 20;
 // Đặt số lần thử đăng nhập tối đa khi đăng nhập lỗi, nếu thử lại quá số lần cài đặt sẽ dừng chạy tài khoản đó và ghi lỗi vào file log
@@ -34,7 +34,7 @@ setInterval(async () => {
   } catch (error) {
     console.log(colors.red("Lấy dữ liệu server zuydd thất bại"));
   }
-}, generatorHelper.randomInt(20, 40) * 60);
+}, generatorHelper.randomInt(20, 40) * 60 * 1000);
 
 const run = async (user, index) => {
   let countRetryProxy = 0;

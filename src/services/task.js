@@ -214,7 +214,7 @@ class TaskService {
     }
   }
 
-  async handleTaskPromo(user, dataTasks) {
+  async handleTaskPromo(user, dataTasks, title) {
     const skipTasks = ["39391eb2-f031-4954-bd8a-e7aecbb1f192"];
 
     const tasksFilter = dataTasks.filter(
@@ -226,12 +226,14 @@ class TaskService {
 
     if (tasksFilter.length) {
       user.log.log(
-        `Còn ${colors.blue(tasksFilter.length)} nhiệm vụ Promo chưa hoàn thành`
+        `Còn ${colors.blue(
+          tasksFilter.length
+        )} nhiệm vụ ${title} chưa hoàn thành`
       );
     } else {
       user.log.log(
         colors.magenta(
-          "Đã làm hết các nhiệm vụ Promo (trừ các nhiệm phải làm tay bị bỏ qua)"
+          `Đã làm hết các nhiệm vụ ${title} (trừ các nhiệm phải làm tay bị bỏ qua)`
         )
       );
     }
@@ -312,9 +314,11 @@ class TaskService {
       return;
     }
 
-    const promoTasks = tasks[0].tasks;
-    await this.handleTaskPromo(user, promoTasks);
-    const basicTasks = tasks[1].subSections;
+    const weeklyTasks = tasks[0].tasks;
+    await this.handleTaskPromo(user, weeklyTasks, "Weekly");
+    const promoTasks = tasks[1].tasks;
+    await this.handleTaskPromo(user, promoTasks, "Promo");
+    const basicTasks = tasks[2].subSections;
     await this.handleTaskBasic(user, basicTasks);
 
     user.log.log(colors.magenta("Đã làm hết nhiệm vụ"));

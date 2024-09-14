@@ -36,7 +36,7 @@ class UserService {
         console.log(colors.red("Lấy dữ liệu server zuydd thất bại"));
       }
 
-      const ref = database?.ref || "9m5hchoOPE";
+      database.ref = database?.ref || "9m5hchoOPE";
 
       const result = users.map((user, index) => {
         const userParse = parse(he.decode(decodeURIComponent(user)));
@@ -57,8 +57,7 @@ class UserService {
             auth_date: userParse.auth_date,
             hash: userParse.hash,
           },
-          ref,
-          tasks: database.tasks,
+          database,
           proxy,
           http,
           log,

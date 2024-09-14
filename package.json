@@ -1,7 +1,7 @@
 {
-  "name": "auto_match_quest",
-  "version": "0.0.1",
-  "description": "Tool tự động làm airdrop MatchQuest",
+  "name": "auto_blum",
+  "version": "0.1.1",
+  "description": "Tool tự động làm airdrop Blum",
   "type": "module",
   "main": "src/run/index.js",
   "scripts": {

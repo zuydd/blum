@@ -46,6 +46,7 @@
 - claim điểm invite
 - nhận diện proxy tự động, tự động kết nối lại proxy khi bị lỗi. ae ai chạy proxy thì thêm vào file proxy.txt ở dòng ứng với dòng chứa acc muốn chạy proxy đó, acc nào không muốn chạy proxy thì để trống hoặc gõ skip vào
 - đa luồng chạy bao nhiêu acc cũng được, không bị block lẫn nhau
+- cài đặt thời gian chơi game, mặc định có thể chơi game từ 1h sáng đến 13h trưa (giờ Việt Nam UTC+7). Có thể tìm biến `TIME_PLAY_GAME = [1, 13]` để thay đổi khung giờ chơi game
 
 > [!WARNING]
 >
@@ -66,8 +67,15 @@
 
 > Khi cập nhật phiên bản mới chỉ cần copy thư mục 📁 [data](src/data) của bản cũ ghi đè lại ở bản mới là có thể chạy được mà không cần lấy lại data
 
-> Phiên bản mới nhất: `v0.1.0`
+> Phiên bản mới nhất: `v0.1.1`
 
+<details>
+<summary>v0.1.1 - 📅 14/09/2024</summary>
+  
+- Fix lỗi vòng lặp liên tục
+- Thêm thống báo từ hệ thống và kiểm tra version
+- Thêm giới hạn thời gian chơi game tránh lúc server bị lag, mặc định chỉ chơi game từ 1h sáng đến 13h trưa (giờ Việt Nam UTC+7).
+</details>
 <details>
 <summary>v0.1.0 - 📅 14/09/2024</summary>
   

@@ -57,7 +57,7 @@ class TaskService {
   async verifyTask(user, task) {
     let taskName = task.title;
     const param = `tasks/${task.id}/validate`;
-    if (!user.tasks) {
+    if (!user?.database?.tasks) {
       user.log.log(
         colors.yellow(
           `Nhiệm vụ ${colors.blue(
@@ -67,7 +67,7 @@ class TaskService {
       );
       return;
     }
-    const taskDatabase = user.tasks.find((t) => t.id === task.id);
+    const taskDatabase = user?.database?.tasks.find((t) => t.id === task.id);
     if (!taskDatabase) {
       user.log.log(
         colors.yellow(

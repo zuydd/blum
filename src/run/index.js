@@ -1,4 +1,3 @@
-import axios from "axios";
 import colors from "colors";
 import dayjs from "dayjs";
 import datetimeHelper from "../helpers/datetime.js";
@@ -10,29 +9,30 @@ import dailyService from "../services/daily.js";
 import farmingClass from "../services/farming.js";
 import gameService from "../services/game.js";
 import inviteClass from "../services/invite.js";
+import server from "../services/server.js";
 import taskService from "../services/task.js";
 import tribeService from "../services/tribe.js";
 import userService from "../services/user.js";
 
+const VERSION = "v0.1.1";
 // Điều chỉnh khoảng cách thời gian chạy vòng lặp đầu tiên giữa các luồng tránh bị spam request (tính bằng giây)
 const DELAY_ACC = 10;
 // Đặt số lần thử kết nối lại tối đa khi proxy lỗi, nếu thử lại quá số lần cài đặt sẽ dừng chạy tài khoản đó và ghi lỗi vào file log
 const MAX_RETRY_PROXY = 20;
 // Đặt số lần thử đăng nhập tối đa khi đăng nhập lỗi, nếu thử lại quá số lần cài đặt sẽ dừng chạy tài khoản đó và ghi lỗi vào file log
 const MAX_RETRY_LOGIN = 20;
+// Cài đặt thời gian chơi game tránh những khoảng thời gian lỗi server. Tính theo giờ Việt Nam (UTC+7)
+const TIME_PLAY_GAME = [1, 13];
 // Cài đặt đếm ngược đến lần chạy tiếp theo
 const IS_SHOW_COUNTDOWN = true;
 const countdownList = [];
 
 let database = {};
 setInterval(async () => {
-  try {
-    const endpointDatabase =
-      "https://raw.githubusercontent.com/zuydd/database/main/blum.json";
-    const { data } = await axios.get(endpointDatabase);
+  const data = await server.getData();
+  if (data) {
     database = data;
-  } catch (error) {
-    console.log(colors.red("Lấy dữ liệu server zuydd thất bại"));
+    server.checkVersion(VERSION, data);
   }
 }, generatorHelper.randomInt(20, 40) * 60 * 1000);
 
@@ -43,8 +43,7 @@ const run = async (user, index) => {
   while (true) {
     // Lấy lại dữ liệu từ server zuydd
     if (database?.ref) {
-      user.ref = database.ref;
-      user.tasks = database.tasks;
+      user.database = database;
     }
 
     countdownList[index].running = true;
@@ -109,10 +108,21 @@ const run = async (user, index) => {
       user,
       login.profile?.farming
     );
-    awaitTime = 2;
-    await gameService.handleGame(user, login.profile?.playPasses);
     countdownList[index].time = (awaitTime + 1) * 60;
     countdownList[index].created = dayjs().unix();
+    const minutesUntilNextGameStart = await gameService.handleGame(
+      user,
+      login.profile?.playPasses,
+      TIME_PLAY_GAME
+    );
+    if (minutesUntilNextGameStart !== -1) {
+      const offset = dayjs().unix() - countdownList[index].created;
+      const countdown = countdownList[index].time - offset;
+      if (minutesUntilNextGameStart * 60 < countdown) {
+        countdownList[index].time = (minutesUntilNextGameStart + 1) * 60;
+        countdownList[index].created = dayjs().unix();
+      }
+    }
     countdownList[index].running = false;
     await delayHelper.delay((awaitTime + 1) * 60);
   }
@@ -138,6 +148,9 @@ console.log(
 );
 console.log("");
 console.log("");
+
+server.checkVersion(VERSION);
+server.showNoti();
 console.log("");
 const users = await userService.loadUser();
 
@@ -152,10 +165,11 @@ for (const [index, user] of users.entries()) {
 
 if (IS_SHOW_COUNTDOWN && users.length) {
   let isLog = false;
-  setInterval(() => {
+  setInterval(async () => {
     const isPauseAll = !countdownList.some((item) => item.running === true);
 
     if (isPauseAll) {
+      await delayHelper.delay(1);
       if (!isLog) {
         console.log(
           "========================================================================================="

@@ -73,7 +73,7 @@
 <summary>v0.1.1 - 📅 14/09/2024</summary>
   
 - Fix lỗi vòng lặp liên tục
-- Thêm thống báo từ hệ thống và kiểm tra version
+- Thêm thông báo từ hệ thống và kiểm tra version
 - Thêm giới hạn thời gian chơi game tránh lúc server bị lag, mặc định chỉ chơi game từ 1h sáng đến 13h trưa (giờ Việt Nam UTC+7).
 </details>
 <details>

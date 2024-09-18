@@ -314,12 +314,13 @@ class TaskService {
       return;
     }
 
-    const weeklyTasks = tasks[0].tasks;
-    await this.handleTaskPromo(user, weeklyTasks, "Weekly");
-    const promoTasks = tasks[1].tasks;
-    await this.handleTaskPromo(user, promoTasks, "Promo");
-    const basicTasks = tasks[2].subSections;
-    await this.handleTaskBasic(user, basicTasks);
+    for (const task of tasks) {
+      if (task?.title) {
+        await this.handleTaskPromo(user, task.tasks, task.title);
+      } else {
+        await this.handleTaskBasic(user, task.subSections);
+      }
+    }
 
     user.log.log(colors.magenta("Đã làm hết nhiệm vụ"));
   }

@@ -56,7 +56,7 @@
 ## ♾ Cài đặt đa luồng
 
 - Mặc định tool sẽ chạy đa luồng ứng với số tài khoản bạn nhập vào, không cần cài đặt thêm gì cả.
-- Mặc định ở vòng lặp đầu tiên mỗi tài khoản (luồng) sẽ chạy cách nhau 30s để tránh spam request, có thể tìm biến `DELAY_ACC = 30` trong file [index.js](src/run/index.js) để điều chỉnh cho phù hợp
+- Mặc định ở vòng lặp đầu tiên mỗi tài khoản (luồng) sẽ chạy cách nhau 30s để tránh spam request, có thể tìm biến `DELAY_ACC = 10` trong file [index.js](src/run/index.js) để điều chỉnh cho phù hợp
 
 ## ❌ Chế độ thử lại khi lỗi
 
@@ -67,8 +67,13 @@
 
 > Khi cập nhật phiên bản mới chỉ cần copy thư mục 📁 [data](src/data) của bản cũ ghi đè lại ở bản mới là có thể chạy được mà không cần lấy lại data
 
-> Phiên bản mới nhất: `v0.1.1`
+> Phiên bản mới nhất: `v0.1.2`
 
+<details>
+<summary>v0.1.2 - 📅 18/09/2024</summary>
+  
+- Thêm làm nhiệm vụ X Empire
+</details>
 <details>
 <summary>v0.1.1 - 📅 14/09/2024</summary>
   

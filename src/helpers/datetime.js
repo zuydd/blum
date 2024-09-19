@@ -27,6 +27,9 @@ class DatetimeHelper {
   }
 
   formatTime(seconds) {
+    const isNegative = seconds < 0;
+    seconds = Math.abs(seconds); // Lấy giá trị tuyệt đối của seconds
+
     const hours = Math.floor(seconds / 3600); // Tính số giờ
     const minutes = Math.floor((seconds % 3600) / 60); // Tính số phút
     const remainingSeconds = seconds % 60; // Tính số giây còn lại
@@ -38,13 +41,12 @@ class DatetimeHelper {
     }
 
     if (minutes > 0 || hours > 0) {
-      // Nếu có phút hoặc có giờ
       result += `${minutes} phút, `;
     }
 
     result += `${remainingSeconds}s`; // Luôn luôn hiển thị giây
 
-    return result.trim();
+    return isNegative ? `-${result.trim()}` : result.trim();
   }
 }
 

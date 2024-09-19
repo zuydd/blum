@@ -139,10 +139,8 @@ class TaskService {
     }
   }
 
-  async handleTaskBasic(user, dataTasks) {
+  async handleTaskBasic(user, dataTasks, title) {
     const skipTasks = ["39391eb2-f031-4954-bd8a-e7aecbb1f192"];
-    const tasksErrorStart = [];
-    const tasksErrorClaim = [];
 
     let tasksMerge = [];
     for (const item of dataTasks) {
@@ -163,16 +161,98 @@ class TaskService {
 
     if (taskList.length) {
       user.log.log(
-        `Còn ${colors.blue(taskList.length)} nhiệm vụ cơ bản chưa hoàn thành`
+        `Còn ${colors.blue(taskList.length)} nhiệm vụ ${colors.blue(
+          title
+        )} chưa hoàn thành`
       );
     } else {
       user.log.log(
         colors.magenta(
-          "Đã làm hết các nhiệm vụ cơ bản (trừ các nhiệm phải làm tay bị bỏ qua)"
+          `Đã làm hết các nhiệm vụ ${colors.blue(
+            title
+          )} (trừ các nhiệm phải làm tay bị bỏ qua)`
         )
       );
     }
 
+    await this.handleSingleTask(user, tasks);
+  }
+
+  async handleTaskMultiple(user, dataTasks, title) {
+    const skipTasks = ["39391eb2-f031-4954-bd8a-e7aecbb1f192"];
+
+    const tasksFilter = dataTasks.filter((task) => {
+      if (task?.subTasks) {
+        return (
+          !skipTasks.includes(task.id) &&
+          !task.subTasks.every((task) => task.status === "FINISHED") &&
+          !task.isHidden
+        );
+      } else {
+        return (
+          !skipTasks.includes(task.id) &&
+          !task.status === "FINISHED" &&
+          !task.isHidden
+        );
+      }
+    });
+
+    if (tasksFilter.length) {
+      user.log.log(
+        `Còn ${colors.blue(tasksFilter.length)} nhiệm vụ ${colors.blue(
+          title
+        )} chưa hoàn thành`
+      );
+    } else {
+      user.log.log(
+        colors.magenta(
+          `Đã làm hết các nhiệm vụ ${colors.blue(
+            title
+          )} (trừ các nhiệm phải làm tay bị bỏ qua)`
+        )
+      );
+    }
+
+    for (const taskParent of tasksFilter) {
+      user.log.log(
+        `Bắt đầu làm nhiệm vụ ${colors.blue(
+          taskParent.title
+        )}, chờ hoàn thành hết các nhiệm vụ con để nhận thưởng`
+      );
+
+      if (!taskParent?.subTasks) {
+        await this.handleSingleTask(user, [taskParent]);
+      } else {
+        let countDone = await this.handleSubTask(
+          user,
+          taskParent?.subTasks,
+          taskParent?.title
+        );
+        if (countDone === taskParent?.subTasks?.length) {
+          // await this.claimTask(user, taskParent);
+          user.log.log(
+            colors.magenta(
+              `Đã làm hết các nhiệm vụ ${colors.blue(
+                taskParent.title
+              )} (trừ các nhiệm phải làm tay bị bỏ qua)`
+            )
+          );
+        } else {
+          user.log.log(
+            colors.yellow(
+              `Chưa hoàn thành hết các nhiệm vụ con của task ${colors.blue(
+                taskParent.title
+              )}`
+            )
+          );
+        }
+      }
+    }
+  }
+
+  async handleSingleTask(user, tasks) {
+    const tasksErrorStart = [];
+    const tasksErrorClaim = [];
     for (const task of tasks) {
       let complete = task.status;
       if (complete === "NOT_STARTED" && task.type !== "PROGRESS_TARGET") {
@@ -214,99 +294,45 @@ class TaskService {
     }
   }
 
-  async handleTaskWeekly(user, dataTasks, title) {
-    const skipTasks = ["39391eb2-f031-4954-bd8a-e7aecbb1f192"];
-
-    const tasksFilter = dataTasks.filter((task) => {
-      return (
-        !skipTasks.includes(task.id) &&
-        !task.subTasks.every((task) => task.status === "FINISHED") &&
-        !task.isHidden
-      );
-    });
-
-    if (tasksFilter.length) {
-      user.log.log(
-        `Còn ${colors.blue(
-          tasksFilter[0].subTasks.length
-        )} nhiệm vụ ${colors.blue("Weekly")} chưa hoàn thành`
-      );
-    } else {
-      user.log.log(
-        colors.magenta(
-          `Đã làm hết các nhiệm vụ ${colors.blue(
-            "Weekly"
-          )} (trừ các nhiệm phải làm tay bị bỏ qua)`
-        )
-      );
-    }
-
-    for (const taskParent of tasksFilter) {
-      user.log.log(
-        `Bắt đầu làm nhiệm vụ ${colors.blue(
-          taskParent.title
-        )}, chờ hoàn thành hết các nhiệm vụ con để nhận thưởng`
-      );
-      let countDone = 0;
-      if (!taskParent?.subTasks) {
-        user.log.log(colors.yellow("Không tìm thấy câu hỏi con"));
-      } else {
-        for (const task of taskParent.subTasks) {
-          let complete = task.status;
-          if (complete === "FINISHED") {
-            countDone++;
-            user.log.log(
-              `✔️ Đã hoàn thành nhiệm vụ ${colors.blue(
-                taskParent.title + " --> " + task.title
-              )}`
-            );
-            continue;
-          }
-          if (complete === "NOT_STARTED" && task.type !== "PROGRESS_TARGET") {
-            complete = await this.startTask(user, task);
-            await delayHelper.delay(3);
-          }
-          if (complete === "READY_FOR_VERIFY") {
-            complete = await this.verifyTask(user, task);
-          }
-          if (complete === "READY_FOR_CLAIM" || complete === "STARTED") {
-            const statusClaim = await this.claimTask(user, task, false);
-            if (statusClaim) {
-              countDone++;
-              user.log.log(
-                `✔️ Đã hoàn thành nhiệm vụ ${colors.blue(
-                  taskParent.title + " --> " + task.title
-                )}`
-              );
-            } else {
-              user.log.logError(
-                `❌ Làm nhiệm vụ ${colors.blue(
-                  taskParent.title + " --> " + task.title
-                )} thất bại`
-              );
-            }
-          }
+  async handleSubTask(user, subTask, nameTaskParent) {
+    let countDone = 0;
+    for (const task of subTask) {
+      let complete = task.status;
+      if (complete === "FINISHED") {
+        countDone++;
+        user.log.log(
+          `✔️ Đã hoàn thành nhiệm vụ ${colors.blue(
+            nameTaskParent + " --> " + task.title
+          )}`
+        );
+        continue;
+      }
+      if (complete === "NOT_STARTED" && task.type !== "PROGRESS_TARGET") {
+        complete = await this.startTask(user, task);
+        await delayHelper.delay(3);
+      }
+      if (complete === "READY_FOR_VERIFY") {
+        complete = await this.verifyTask(user, task);
+      }
+      if (complete === "READY_FOR_CLAIM" || complete === "STARTED") {
+        const statusClaim = await this.claimTask(user, task, false);
+        if (statusClaim) {
+          countDone++;
+          user.log.log(
+            `✔️ Đã hoàn thành nhiệm vụ ${colors.blue(
+              nameTaskParent + " --> " + task.title
+            )}`
+          );
+        } else {
+          user.log.logError(
+            `❌ Làm nhiệm vụ ${colors.blue(
+              nameTaskParent + " --> " + task.title
+            )} thất bại`
+          );
         }
       }
-      if (countDone === taskParent?.subTasks?.length) {
-        // await this.claimTask(user, taskParent);
-        user.log.log(
-          colors.magenta(
-            `Đã làm hết các nhiệm vụ ${colors.blue(
-              "Weekly"
-            )} (trừ các nhiệm phải làm tay bị bỏ qua)`
-          )
-        );
-      } else {
-        user.log.log(
-          colors.yellow(
-            `Chưa hoàn thành hết các nhiệm vụ con của task ${colors.blue(
-              taskParent.title
-            )}`
-          )
-        );
-      }
     }
+    return countDone;
   }
 
   async handleTask(user) {
@@ -326,9 +352,9 @@ class TaskService {
 
     for (const task of tasks) {
       if (task?.sectionType === "DEFAULT") {
-        await this.handleTaskBasic(user, task.subSections);
-      } else if (task?.sectionType === "WEEKLY_ROUTINE") {
-        await this.handleTaskWeekly(user, task.tasks, task.title);
+        await this.handleTaskBasic(user, task.subSections, task.sectionType);
+      } else {
+        await this.handleTaskMultiple(user, task.tasks, task.sectionType);
       }
     }
 

@@ -214,26 +214,29 @@ class TaskService {
     }
   }
 
-  async handleTaskPromo(user, dataTasks, title) {
+  async handleTaskWeekly(user, dataTasks, title) {
     const skipTasks = ["39391eb2-f031-4954-bd8a-e7aecbb1f192"];
 
-    const tasksFilter = dataTasks.filter(
-      (task) =>
+    const tasksFilter = dataTasks.filter((task) => {
+      return (
         !skipTasks.includes(task.id) &&
-        task.status !== "FINISHED" &&
+        !task.subTasks.every((task) => task.status === "FINISHED") &&
         !task.isHidden
-    );
+      );
+    });
 
     if (tasksFilter.length) {
       user.log.log(
         `Còn ${colors.blue(
-          tasksFilter.length
-        )} nhiệm vụ ${title} chưa hoàn thành`
+          tasksFilter[0].subTasks.length
+        )} nhiệm vụ ${colors.blue("Weekly")} chưa hoàn thành`
       );
     } else {
       user.log.log(
         colors.magenta(
-          `Đã làm hết các nhiệm vụ ${title} (trừ các nhiệm phải làm tay bị bỏ qua)`
+          `Đã làm hết các nhiệm vụ ${colors.blue(
+            "Weekly"
+          )} (trừ các nhiệm phải làm tay bị bỏ qua)`
         )
       );
     }
@@ -286,7 +289,14 @@ class TaskService {
         }
       }
       if (countDone === taskParent?.subTasks?.length) {
-        await this.claimTask(user, taskParent);
+        // await this.claimTask(user, taskParent);
+        user.log.log(
+          colors.magenta(
+            `Đã làm hết các nhiệm vụ ${colors.blue(
+              "Weekly"
+            )} (trừ các nhiệm phải làm tay bị bỏ qua)`
+          )
+        );
       } else {
         user.log.log(
           colors.yellow(
@@ -315,10 +325,10 @@ class TaskService {
     }
 
     for (const task of tasks) {
-      if (task?.title) {
-        await this.handleTaskPromo(user, task.tasks, task.title);
-      } else {
+      if (task?.sectionType === "DEFAULT") {
         await this.handleTaskBasic(user, task.subSections);
+      } else if (task?.sectionType === "WEEKLY_ROUTINE") {
+        await this.handleTaskWeekly(user, task.tasks, task.title);
       }
     }
 

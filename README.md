@@ -67,8 +67,13 @@
 
 > Khi cập nhật phiên bản mới chỉ cần copy thư mục 📁 [data](src/data) của bản cũ ghi đè lại ở bản mới là có thể chạy được mà không cần lấy lại data
 
-> Phiên bản mới nhất: `v0.1.3`
+> Phiên bản mới nhất: `v0.1.4`
 
+<details>
+<summary>v0.1.4 - 📅 25/09/2024</summary>
+  
+- Tạm bỏ qua làm nhiệm vụ do server lỗi (sẽ tự động mở lại khi server ổn định)
+</details>
 <details>
 <summary>v0.1.3 - 📅 19/09/2024</summary>
   

@@ -67,8 +67,13 @@
 
 > Khi cập nhật phiên bản mới chỉ cần copy thư mục 📁 [data](src/data) của bản cũ ghi đè lại ở bản mới là có thể chạy được mà không cần lấy lại data
 
-> Phiên bản mới nhất: `v0.1.4`
+> Phiên bản mới nhất: `v0.1.5`
 
+<details>
+<summary>v0.1.5 - 📅 12/10/2024</summary>
+  
+- Tạm bỏ qua chơi game, sẽ fix sau
+</details>
 <details>
 <summary>v0.1.4 - 📅 25/09/2024</summary>
   

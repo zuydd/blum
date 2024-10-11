@@ -13,7 +13,8 @@ class GameService {
 
   async playGame(user) {
     try {
-      const { data } = await user.http.post(0, "game/play", {});
+      const { data } = await user.http.post(5, "game/play", {});
+
       if (data) {
         user.log.log(
           `Bắt đầu chơi game, kết thúc và nhận thưởng sau: ${colors.blue(
@@ -40,7 +41,7 @@ class GameService {
     const points = generatorHelper.randomInt(180, 200);
     const body = { gameId, points };
     try {
-      const { data } = await user.http.post(0, "game/claim", body);
+      const { data } = await user.http.post(5, "game/claim", body);
       if (data) {
         user.log.log(
           `Chơi game xong, phần thưởng: ${colors.green(points + user.currency)}`

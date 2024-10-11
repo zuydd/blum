@@ -7,14 +7,14 @@ import generatorHelper from "../helpers/generator.js";
 import authService from "../services/auth.js";
 import dailyService from "../services/daily.js";
 import farmingClass from "../services/farming.js";
-import gameService from "../services/game.js";
+// import gameService from "../services/game.js";
 import inviteClass from "../services/invite.js";
 import server from "../services/server.js";
 import taskService from "../services/task.js";
 import tribeService from "../services/tribe.js";
 import userService from "../services/user.js";
 
-const VERSION = "v0.1.4";
+const VERSION = "v0.1.5";
 // Điều chỉnh khoảng cách thời gian chạy vòng lặp đầu tiên giữa các luồng tránh bị spam request (tính bằng giây)
 const DELAY_ACC = 10;
 // Đặt số lần thử kết nối lại tối đa khi proxy lỗi, nếu thử lại quá số lần cài đặt sẽ dừng chạy tài khoản đó và ghi lỗi vào file log
@@ -119,19 +119,19 @@ const run = async (user, index) => {
     );
     countdownList[index].time = (awaitTime + 1) * 60;
     countdownList[index].created = dayjs().unix();
-    const minutesUntilNextGameStart = await gameService.handleGame(
-      user,
-      login.profile?.playPasses,
-      TIME_PLAY_GAME
-    );
-    if (minutesUntilNextGameStart !== -1) {
-      const offset = dayjs().unix() - countdownList[index].created;
-      const countdown = countdownList[index].time - offset;
-      if (minutesUntilNextGameStart * 60 < countdown) {
-        countdownList[index].time = (minutesUntilNextGameStart + 1) * 60;
-        countdownList[index].created = dayjs().unix();
-      }
-    }
+    // const minutesUntilNextGameStart = await gameService.handleGame(
+    //   user,
+    //   login.profile?.playPasses,
+    //   TIME_PLAY_GAME
+    // );
+    // if (minutesUntilNextGameStart !== -1) {
+    //   const offset = dayjs().unix() - countdownList[index].created;
+    //   const countdown = countdownList[index].time - offset;
+    //   if (minutesUntilNextGameStart * 60 < countdown) {
+    //     countdownList[index].time = (minutesUntilNextGameStart + 1) * 60;
+    //     countdownList[index].created = dayjs().unix();
+    //   }
+    // }
     countdownList[index].running = false;
     await delayHelper.delay((awaitTime + 1) * 60);
   }

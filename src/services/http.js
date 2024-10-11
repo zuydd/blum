@@ -9,6 +9,7 @@ export class HttpService {
       "https://tribe-domain.blum.codes/api/v1/",
       "https://user-domain.blum.codes/api/v1/",
       "https://earn-domain.blum.codes/api/v1/",
+      "https://game-domain.blum.codes/api/v2/",
     ];
     this.proxy = proxy;
     this.log = log;

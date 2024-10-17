@@ -1,6 +1,6 @@
 {
   "name": "auto_blum",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Tool tự động làm airdrop Blum",
   "type": "module",
   "main": "src/run/index.js",

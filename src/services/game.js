@@ -90,7 +90,7 @@ class GameService {
       if (data.payload) return data.payload;
       throw new Error(`Tạo payload thất bại: ${data?.error}`);
     } catch (error) {
-      console.log(colors.red(error.response.data.error));
+      console.log(colors.red(error));
       return null;
     }
   }

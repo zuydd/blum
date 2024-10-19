@@ -14,15 +14,15 @@ import taskService from "../services/task.js";
 import tribeService from "../services/tribe.js";
 import userService from "../services/user.js";
 
-const VERSION = "v0.1.6";
+const VERSION = "v0.1.7";
 // Điều chỉnh khoảng cách thời gian chạy vòng lặp đầu tiên giữa các luồng tránh bị spam request (tính bằng giây)
 const DELAY_ACC = 10;
 // Đặt số lần thử kết nối lại tối đa khi proxy lỗi, nếu thử lại quá số lần cài đặt sẽ dừng chạy tài khoản đó và ghi lỗi vào file log
 const MAX_RETRY_PROXY = 20;
 // Đặt số lần thử đăng nhập tối đa khi đăng nhập lỗi, nếu thử lại quá số lần cài đặt sẽ dừng chạy tài khoản đó và ghi lỗi vào file log
 const MAX_RETRY_LOGIN = 20;
-// Cài đặt thời gian chơi game tránh những khoảng thời gian lỗi server. Tính theo giờ Việt Nam (UTC+7)
-const TIME_PLAY_GAME = [1, 13];
+// Cài đặt thời gian KHÔNG chơi game tránh những khoảng thời gian lỗi server. ví dụ nhập [1, 2, 3, 8, 20] thì sẽ không chơi game trong các khung giờ 1, 2, 3, 8, 20 giờ
+const TIME_PLAY_GAME = [];
 // Cài đặt đếm ngược đến lần chạy tiếp theo
 const IS_SHOW_COUNTDOWN = true;
 const countdownList = [];

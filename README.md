@@ -20,7 +20,7 @@
 
 ## 💾 Cách thêm dữ liệu tài khoản
 
-> Tool hỗ trợ cả `user` và `query_id` (khuyến khích dùng query_id)
+> Tool hỗ trợ cả `user` và `query_id`
 
 > Tất cả dữ liệu mà bạn cần nhập đều nằm ở các file trong thư mục 📁 `src / data`
 
@@ -46,7 +46,7 @@
 - claim điểm invite
 - nhận diện proxy tự động, tự động kết nối lại proxy khi bị lỗi. ae ai chạy proxy thì thêm vào file proxy.txt ở dòng ứng với dòng chứa acc muốn chạy proxy đó, acc nào không muốn chạy proxy thì để trống hoặc gõ skip vào
 - đa luồng chạy bao nhiêu acc cũng được, không bị block lẫn nhau
-- cài đặt thời gian chơi game, mặc định có thể chơi game từ 1h sáng đến 13h trưa (giờ Việt Nam UTC+7). Có thể tìm biến `TIME_PLAY_GAME = [1, 13]` để thay đổi khung giờ chơi game
+- cài đặt thời gian chơi game, mặc định game sẽ luôn chơi game, nếu gắp các khung giờ cao điểm bạn có thể tìm biến `TIME_PLAY_GAME = []` nhập các khung giờ không muốn chơi game vào để bỏ qua chơi game, ví dụ nhập [1, 2, 3, 8, 20] thì sẽ không chơi game trong các khung giờ 1, 2, 3, 8, 20 giờ
 
 > [!WARNING]
 >
@@ -67,8 +67,13 @@
 
 > Khi cập nhật phiên bản mới chỉ cần copy thư mục 📁 [data](src/data) của bản cũ ghi đè lại ở bản mới là có thể chạy được mà không cần lấy lại data
 
-> Phiên bản mới nhất: `v0.1.6`
+> Phiên bản mới nhất: `v0.1.7`
 
+<details>
+<summary>v0.1.7 - 📅 16/10/2024</summary>
+  
+- Thay đổi cơ chế cài đặt thời gian không chơi game (mặc định sẽ luôn chơi game)
+</details>
 <details>
 <summary>v0.1.6 - 📅 16/10/2024</summary>
   

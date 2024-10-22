@@ -1,6 +1,6 @@
 {
   "name": "auto_blum",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Tool tự động làm airdrop Blum",
   "type": "module",
   "main": "src/run/index.js",
@@ -16,6 +16,7 @@
     "colors": "^1.4.0",
     "crypto": "^1.0.1",
     "dayjs": "^1.11.12",
+    "fingerprintjs2": "^2.1.4",
     "he": "^1.2.0",
     "https-proxy-agent": "^7.0.5",
     "inquirer": "^10.1.8",

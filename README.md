@@ -10,6 +10,8 @@
 > [!WARNING]
 > Mọi hành vi buôn bán tool dưới bất cứ hình thức nào đều không được cho phép!
 
+## Mua hoặc nhận miễn phí API KEY tại https://zuy-web.vercel.app/blum
+
 ## 🛠️ Hướng dẫn cài đặt
 
 > Yêu cầu đã cài đặt NodeJS
@@ -42,7 +44,7 @@
 - tự động tham gia tribe để nhận thêm 10% điểm thưởng
 - tự động làm nhiệm vụ
 - tự động farming/claim khi tới giờ
-- tự động chơi game
+- tự động chơi game (yêu cầu API KEY, mua hoặc nhận miễn phí API KEY tại https://zuy-web.vercel.app/blum)
 - claim điểm invite
 - nhận diện proxy tự động, tự động kết nối lại proxy khi bị lỗi. ae ai chạy proxy thì thêm vào file proxy.txt ở dòng ứng với dòng chứa acc muốn chạy proxy đó, acc nào không muốn chạy proxy thì để trống hoặc gõ skip vào
 - đa luồng chạy bao nhiêu acc cũng được, không bị block lẫn nhau
@@ -67,8 +69,14 @@
 
 > Khi cập nhật phiên bản mới chỉ cần copy thư mục 📁 [data](src/data) của bản cũ ghi đè lại ở bản mới là có thể chạy được mà không cần lấy lại data
 
-> Phiên bản mới nhất: `v0.1.7`
+> Phiên bản mới nhất: `v0.1.8`
 
+<details>
+<summary>v0.1.8 - 📅 23/10/2024</summary>
+  
+- Thêm fake thiết bị
+- Thêm hệ thống API KEY chơi game
+</details>
 <details>
 <summary>v0.1.7 - 📅 16/10/2024</summary>
   

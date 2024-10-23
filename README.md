@@ -69,8 +69,13 @@
 
 > Khi cập nhật phiên bản mới chỉ cần copy thư mục 📁 [data](src/data) của bản cũ ghi đè lại ở bản mới là có thể chạy được mà không cần lấy lại data
 
-> Phiên bản mới nhất: `v0.1.8`
+> Phiên bản mới nhất: `v0.1.9`
 
+<details>
+<summary>v0.1.9 - 📅 23/10/2024</summary>
+  
+- Fix lỗi dừng tool
+</details>
 <details>
 <summary>v0.1.8 - 📅 23/10/2024</summary>
   

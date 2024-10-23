@@ -15,7 +15,7 @@ import taskService from "../services/task.js";
 import tribeService from "../services/tribe.js";
 import userService from "../services/user.js";
 
-const VERSION = "v0.1.8";
+const VERSION = "v0.1.9";
 // Điều chỉnh khoảng cách thời gian chạy vòng lặp đầu tiên giữa các luồng tránh bị spam request (tính bằng giây)
 const DELAY_ACC = 10;
 // Đặt số lần thử kết nối lại tối đa khi proxy lỗi, nếu thử lại quá số lần cài đặt sẽ dừng chạy tài khoản đó và ghi lỗi vào file log
@@ -178,7 +178,7 @@ for (const [index, user] of users.entries()) {
     time: 480 * 60,
     created: dayjs().unix(),
   });
-  run(user, index);
+  await run(user, index);
 }
 
 if (IS_SHOW_COUNTDOWN && users.length) {

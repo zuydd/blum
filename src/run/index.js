@@ -178,7 +178,7 @@ for (const [index, user] of users.entries()) {
     time: 480 * 60,
     created: dayjs().unix(),
   });
-  await run(user, index);
+  run(user, index);
 }
 
 if (IS_SHOW_COUNTDOWN && users.length) {

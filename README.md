@@ -69,8 +69,13 @@
 
 > Khi cập nhật phiên bản mới chỉ cần copy thư mục 📁 [data](src/data) của bản cũ ghi đè lại ở bản mới là có thể chạy được mà không cần lấy lại data
 
-> Phiên bản mới nhất: `v0.2.0`
+> Phiên bản mới nhất: `v0.2.1`
 
+<details>
+<summary>v0.2.1 - 📅 23/10/2024</summary>
+  
+- Thay đổi số lượng DOGS nhận được mỗi lần chơi game
+</details>
 <details>
 <summary>v0.2.0 - 📅 23/10/2024</summary>
   

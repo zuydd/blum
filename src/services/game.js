@@ -218,6 +218,11 @@ class GameService {
           gameCount = 0;
           continue;
         }
+        if (!this.API_KEY) {
+          user.log.log(colors.yellow(`Không có API KEY, bỏ qua chơi game`));
+          gameCount = 0;
+          continue;
+        }
         if (this.REMAINING_QUOTA <= 0) {
           user.log.log(
             colors.yellow(

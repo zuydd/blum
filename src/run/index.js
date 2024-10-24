@@ -9,12 +9,13 @@ import dailyService from "../services/daily.js";
 import farmingClass from "../services/farming.js";
 import gameService from "../services/game.js";
 import inviteClass from "../services/invite.js";
+import keyService from "../services/key.js";
 import server from "../services/server.js";
 import taskService from "../services/task.js";
 import tribeService from "../services/tribe.js";
 import userService from "../services/user.js";
 
-const VERSION = "v0.1.7";
+const VERSION = "v0.2.1";
 // Điều chỉnh khoảng cách thời gian chạy vòng lặp đầu tiên giữa các luồng tránh bị spam request (tính bằng giây)
 const DELAY_ACC = 10;
 // Đặt số lần thử kết nối lại tối đa khi proxy lỗi, nếu thử lại quá số lần cài đặt sẽ dừng chạy tài khoản đó và ghi lỗi vào file log
@@ -156,12 +157,20 @@ console.log(
   )} 👈`
 );
 console.log("");
+console.log(
+  `Mua, nhận miễn phí API KEY tại: 👉 ${colors.blue(
+    "https://zuy-web.vercel.app/blum"
+  )}`
+);
+console.log("");
 console.log("");
 
-server.checkVersion(VERSION);
-server.showNoti();
+await server.checkVersion(VERSION);
+await server.showNoti();
 console.log("");
 const users = await userService.loadUser();
+
+await keyService.handleApiKey();
 
 for (const [index, user] of users.entries()) {
   countdownList.push({

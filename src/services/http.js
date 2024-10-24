@@ -2,7 +2,7 @@ import axios from "axios";
 import { HttpsProxyAgent } from "https-proxy-agent";
 
 export class HttpService {
-  constructor(log, proxy = null) {
+  constructor(log, device, proxy = null) {
     this.baseURL = [
       "https://game-domain.blum.codes/api/v1/",
       "https://gateway.blum.codes/v1/",
@@ -16,6 +16,7 @@ export class HttpService {
     this.token = null;
     this.refreshToken = null;
     this.isConnected = false;
+    this.device = device;
     this.headers = {
       "Content-Type": "application/json",
       Accept: "application/json, text/plain, */*",
@@ -25,8 +26,7 @@ export class HttpService {
       "Sec-Fetch-Mode": "cors",
       // Host: "tgapp-api.matchain.io",
       Origin: "https://telegram.blum.codes",
-      "User-Agent":
-        "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+      "User-Agent": this.device.userAgent,
       Referer: "https://telegram.blum.codes/",
       Connection: "keep-alive",
       "Sec-Fetch-Dest": "empty",

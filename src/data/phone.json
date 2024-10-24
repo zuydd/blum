@@ -1,0 +1,128 @@
+{
+  "phone": [
+    {
+      "name": "iPhone 11",
+      "screen_resolution": "896,414"
+    },
+    {
+      "name": "iPhone 11 Pro",
+      "screen_resolution": "812,375"
+    },
+    {
+      "name": "iPhone 11 Pro Max",
+      "screen_resolution": "896,414"
+    },
+    {
+      "name": "iPhone 12 mini",
+      "screen_resolution": "812,375"
+    },
+    {
+      "name": "iPhone 12",
+      "screen_resolution": "844,390"
+    },
+    {
+      "name": "iPhone 12 Pro",
+      "screen_resolution": "844,390"
+    },
+    {
+      "name": "iPhone 12 Pro Max",
+      "screen_resolution": "926,428"
+    },
+    {
+      "name": "iPhone 13 mini",
+      "screen_resolution": "812,375"
+    },
+    {
+      "name": "iPhone 13",
+      "screen_resolution": "844,390"
+    },
+    {
+      "name": "iPhone 13 Pro",
+      "screen_resolution": "844,390"
+    },
+    {
+      "name": "iPhone 13 Pro Max",
+      "screen_resolution": "926,428"
+    },
+    {
+      "name": "iPhone 14",
+      "screen_resolution": "844,390"
+    },
+    {
+      "name": "iPhone 14 Plus",
+      "screen_resolution": "926,428"
+    },
+    {
+      "name": "iPhone 14 Pro",
+      "screen_resolution": "852,393"
+    },
+    {
+      "name": "iPhone 14 Pro Max",
+      "screen_resolution": "932,430"
+    },
+    {
+      "name": "iPhone 15",
+      "screen_resolution": "852,393"
+    },
+    {
+      "name": "iPhone 15 Plus",
+      "screen_resolution": "932,430"
+    },
+    {
+      "name": "iPhone 15 Pro",
+      "screen_resolution": "852,393"
+    },
+    {
+      "name": "iPhone 15 Pro Max",
+      "screen_resolution": "932,430"
+    }
+  ],
+  "ios": [
+    "16_0",
+    "16_0_1",
+    "16_0_2",
+    "16_0_3",
+    "16_1",
+    "16_1_1",
+    "16_1_2",
+    "16_2",
+    "16_3",
+    "16_3_1",
+    "16_4",
+    "16_4_1",
+    "16_5",
+    "16_5_1",
+    "16_6",
+    "16_6_1",
+    "16_7",
+    "16_7_1",
+    "16_7_2",
+    "16_7_3",
+    "16_7_4",
+    "16_7_5",
+    "16_7_6",
+    "16_7_7",
+    "16_7_8",
+    "16_7_9",
+    "16_7_10",
+    "17_0",
+    "17_0_1",
+    "17_0_2",
+    "17_0_3",
+    "17_1",
+    "17_1_1",
+    "17_1_2",
+    "17_2",
+    "17_2_1",
+    "17_3",
+    "17_3_1",
+    "17_4",
+    "17_4_1",
+    "17_5",
+    "17_5_1",
+    "17_6",
+    "17_6_1",
+    "17_7",
+    "18_0"
+  ]
+}

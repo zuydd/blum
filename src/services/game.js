@@ -10,7 +10,18 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 
 class GameService {
-  constructor() {}
+  constructor() {
+    this.API_KEY = "";
+    this.REMAINING_QUOTA = 99999;
+  }
+
+  setApiKey(apiKey) {
+    this.API_KEY = apiKey;
+  }
+
+  setQuota(quota) {
+    this.REMAINING_QUOTA = quota;
+  }
 
   async playGame(user, delay) {
     try {
@@ -43,7 +54,7 @@ class GameService {
     let dogs = 0;
     if (eligibleDogs) {
       points = generatorHelper.randomInt(90, 110);
-      dogs = generatorHelper.randomInt(15, 20) * 5;
+      dogs = generatorHelper.randomInt(5, 10) * 0.1;
     }
     const payload = await this.createPlayload(user, gameId, points, dogs);
 
@@ -71,26 +82,81 @@ class GameService {
   }
 
   async createPlayload(user, gameId, points, dogs) {
-    const servers =
-      user?.database?.payloadServer?.filter((server) => server.status === 1) ||
-      [];
-    let server = "zuydd";
-    if (servers.length) {
-      const index = generatorHelper.randomInt(0, servers.length - 1);
-      server = servers[index];
-    }
-    try {
-      const endpointPayload = `https://${server.id}.vercel.app/api/blum`;
-      const { data } = await axios.post(endpointPayload, {
-        game_id: gameId,
-        points,
-        dogs,
-      });
+    let server = "";
+    if (!this.API_KEY) {
+      const servers =
+        user?.database?.payloadServer?.filter(
+          (server) => server.status === 1
+        ) || [];
+      if (servers.length) {
+        const index = generatorHelper.randomInt(0, servers.length - 1);
+        server = `https://${servers[index].id}.vercel.app/api/`;
+      } else {
+        console.log(colors.yellow(`Không còn máy chủ miễn phí nào hoạt động!`));
+        return null;
+      }
+    } else {
+      const isPro = this.API_KEY.includes("pro");
+      if (isPro) {
+        const servers =
+          user?.database?.server?.pro?.filter(
+            (server) => server.status === 1
+          ) || [];
 
-      if (data.payload) return data.payload;
+        if (servers.length) {
+          server = servers[0].url;
+        } else {
+          return null;
+        }
+      } else {
+        const servers =
+          user?.database?.server?.free?.filter(
+            (server) => server.status === 1
+          ) || [];
+
+        if (servers.length) {
+          server = servers[0].url;
+        } else {
+          console.log(
+            colors.yellow(`Không còn máy chủ miễn phí nào hoạt động!!`)
+          );
+          return null;
+        }
+      }
+    }
+
+    try {
+      let endpointPayload = `${server}blum/payload`;
+      if (!this.API_KEY) {
+        endpointPayload = `${server}blum`;
+      }
+      const { data } = await axios.post(
+        endpointPayload,
+        {
+          game_id: gameId,
+          points,
+          dogs,
+        },
+        {
+          headers: {
+            "X-API-KEY": this.API_KEY,
+          },
+        }
+      );
+      let payload = data.payload;
+      let remaining_quota = 999999;
+      if (this.API_KEY) {
+        payload = data.data.payload;
+        remaining_quota = data.data.remaining_quota;
+        this.setQuota(remaining_quota);
+      }
+
+      if (payload) {
+        return payload;
+      }
       throw new Error(`Tạo payload thất bại: ${data?.error}`);
     } catch (error) {
-      console.log(colors.red(error));
+      console.log(colors.red(error?.response?.data?.message));
       return null;
     }
   }
@@ -149,6 +215,20 @@ class GameService {
       let errorCount = 0;
       while (gameCount > 0) {
         if (errorCount > 20) {
+          gameCount = 0;
+          continue;
+        }
+        if (!this.API_KEY) {
+          user.log.log(colors.yellow(`Không có API KEY, bỏ qua chơi game`));
+          gameCount = 0;
+          continue;
+        }
+        if (this.REMAINING_QUOTA <= 0) {
+          user.log.log(
+            colors.yellow(
+              `Đã dùng hết lượt chơi game của API KEY. Liên hệ Telegram @zuydd để mua thêm`
+            )
+          );
           gameCount = 0;
           continue;
         }

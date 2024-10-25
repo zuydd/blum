@@ -1,3 +1,37 @@
+
+
+```
+1、安装 nodejs
+
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+
+source ~/.bashrc
+
+nvm install 20.18.0
+
+2、安装 pm2
+npm install pm2 -g
+
+3、下载 blum 程序
+git clone https://github.com/sfter/blum.git
+
+4、运行 blum 程序
+首先把先前的 data.txt 复制到 src/data 下面，命名为 users.txt
+yarn install
+pm2 start src/run/index.js --name arden-blum
+其中 arden-blum 根据你的情况自己取一个名字
+
+5、重启 blum 程序
+pm2 restart arden-blum
+
+6、查看已经运行的 blum 程序
+pm2 list
+
+7、查看运行日志
+pm2 logs arden-blum
+```
+
+
 ![Blum banner](https://raw.githubusercontent.com/zuydd/image/main/blum.jpeg)
 
 # Tool Auto Blum NodeJS by ZuyDD

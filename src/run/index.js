@@ -170,7 +170,7 @@ await server.showNoti();
 console.log("");
 const users = await userService.loadUser();
 
-await keyService.handleApiKey();
+// await keyService.handleApiKey();
 
 for (const [index, user] of users.entries()) {
   countdownList.push({

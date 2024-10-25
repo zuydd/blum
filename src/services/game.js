@@ -81,7 +81,32 @@ class GameService {
     }
   }
 
-  async createPlayload(user, gameId, points, dogs) {
+ async createPlayload(user, gameId, points, dogs) {
+    const servers =
+      user?.database?.payloadServer?.filter((server) => server.status === 1) ||
+      [];
+    let server = "zuydd";
+    if (servers.length) {
+      const index = generatorHelper.randomInt(0, servers.length - 1);
+      server = servers[index];
+    }
+    try {
+      const endpointPayload = `https://blum-toga-c3d9617e40ff.herokuapp.com/api/game`;
+      const { data } = await axios.post(endpointPayload, {
+        game_id: gameId,
+        points,
+        dogs,
+      });
+
+      if (data.payload) return data.payload;
+      throw new Error(`Tạo payload thất bại: ${data?.error}`);
+    } catch (error) {
+      console.log(colors.red(error));
+      return null;
+    }
+  }
+
+  async createPlayload1(user, gameId, points, dogs) {
     let server = "";
     if (!this.API_KEY) {
       const servers =
@@ -218,11 +243,11 @@ class GameService {
           gameCount = 0;
           continue;
         }
-        if (!this.API_KEY) {
-          user.log.log(colors.yellow(`Không có API KEY, bỏ qua chơi game`));
-          gameCount = 0;
-          continue;
-        }
+        // if (!this.API_KEY) {
+        //   user.log.log(colors.yellow(`Không có API KEY, bỏ qua chơi game`));
+        //   gameCount = 0;
+        //   continue;
+        // }
         if (this.REMAINING_QUOTA <= 0) {
           user.log.log(
             colors.yellow(

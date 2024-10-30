@@ -41,17 +41,11 @@ class KeyService {
       });
       return data;
     } catch (error) {
-      // console.log(
-      //   colors.red(
-      //     `[${error?.response?.data?.code}] ` +
-      //       error?.response?.data?.message
-      //   )
-      // );
       return null;
     }
   }
 
-  async handleApiKey() {
+  async handleApiKey(lang) {
     const database = await server.getData();
 
     const rawKeys = fileHelper.readFile("key.txt");
@@ -65,49 +59,40 @@ class KeyService {
 
       const check = await this.checkKey(database, apiKey);
       if (check === null) {
-        console.log(
-          colors.red(
-            `API KEY không hợp lệ, liên hệ Telegram @zuydd để nhận/mua API KEY`
-          )
-        );
+        console.log(colors.red(lang?.key?.key_invalid));
       } else {
         gameService.setApiKey(apiKey);
         gameService.setQuota(check?.data);
         const maskedKey = this.maskApiKey(apiKey);
-        console.log(
-          `API KEY: ${colors.green(maskedKey)} - Còn ${colors.green(
-            check?.data
-          )} lượt sử dụng`
+        const msg = lang?.key?.key_remaining.replace(
+          "XXX",
+          colors.green(check?.data)
         );
+        console.log(`API KEY: ${colors.green(maskedKey)} - ${msg}`);
       }
     } else {
       const response = await inquirer.prompt([
         {
           type: "input",
           name: "apiKey",
-          message:
-            "Nhập API KEY chơi game của bạn? Để trống nếu bạn không có (sẽ bỏ qua chơi game trong quá trình chạy tool)",
+          message: lang?.key?.enter_key,
         },
       ]);
       const { apiKey } = response;
       if (apiKey) {
         const check = await this.checkKey(database, apiKey);
         if (check === null) {
-          console.log(
-            colors.red(
-              `API KEY không hợp lệ, liên hệ Telegram @zuydd để nhận/mua API KEY`
-            )
-          );
+          console.log(colors.red(lang?.key?.key_invalid));
         } else {
           fileHelper.writeLog("key.txt", apiKey);
           gameService.setApiKey(apiKey);
           gameService.setQuota(check?.data);
           const maskedKey = this.maskApiKey(apiKey);
-          console.log(
-            `API KEY: ${colors.green(maskedKey)} - Còn ${colors.green(
-              check?.data
-            )} lượt sử dụng`
+          const msg = lang?.key?.key_remaining.replace(
+            "XXX",
+            colors.green(check?.data)
           );
+          console.log(`API KEY: ${colors.green(maskedKey)} - ${msg}`);
         }
       }
     }

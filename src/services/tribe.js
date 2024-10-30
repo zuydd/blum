@@ -42,6 +42,7 @@ class TribeService {
 
   async joinTribe(
     user,
+    lang,
     tribeId = "642e3141-5536-4d2f-9a5f-a62a35ede62c",
     skipLog = false
   ) {
@@ -51,7 +52,8 @@ class TribeService {
       if (data) {
         if (!skipLog) {
           user.log.log(
-            "Tham gia thành công Tribe: " +
+            lang?.tribe?.join_tribe_success +
+              ": " +
               colors.rainbow("Thỏ Bảy Màu") +
               " 🌈"
           );
@@ -62,7 +64,7 @@ class TribeService {
     } catch (error) {
       if (!skipLog) {
         user.log.logError(
-          `Tham gia tribe thất bại: ${error.response?.data?.message}`
+          `${lang?.tribe?.join_tribe_failed}: ${error.response?.data?.message}`
         );
       }
     }
@@ -83,13 +85,13 @@ class TribeService {
     }
   }
 
-  async handleTribe(user) {
+  async handleTribe(user, lang) {
     const infoTribe = await this.getInfo(user);
 
     if (infoTribe === null) return;
 
     if (!infoTribe) {
-      await this.joinTribe(user);
+      await this.joinTribe(user, lang);
     } else {
       const top100 = await this.getLeaderboard(user);
       const canLeaveTribe = top100.includes(infoTribe.id);
@@ -99,6 +101,7 @@ class TribeService {
         await delayHelper.delay(3);
         await this.joinTribe(
           user,
+          lang,
           "642e3141-5536-4d2f-9a5f-a62a35ede62c",
           true
         );

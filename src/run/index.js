@@ -15,7 +15,14 @@ import taskService from "../services/task.js";
 import tribeService from "../services/tribe.js";
 import userService from "../services/user.js";
 
-const VERSION = "v0.2.1";
+const VERSION = "v0.2.2";
+// Change language
+// vi: Tiếng Việt
+// en: English
+// ru: русский язык
+// id: Bahasa Indonèsia
+// zh: 中国话
+const LANGUAGE = "vi";
 // Điều chỉnh khoảng cách thời gian chạy vòng lặp đầu tiên giữa các luồng tránh bị spam request (tính bằng giây)
 const DELAY_ACC = 10;
 // Đặt số lần thử kết nối lại tối đa khi proxy lỗi, nếu thử lại quá số lần cài đặt sẽ dừng chạy tài khoản đó và ghi lỗi vào file log
@@ -27,6 +34,9 @@ const TIME_PLAY_GAME = [];
 // Cài đặt đếm ngược đến lần chạy tiếp theo
 const IS_SHOW_COUNTDOWN = true;
 const countdownList = [];
+
+const lang = fileHelper.getLang(LANGUAGE);
+// console.log(lang);
 
 let database = {};
 setInterval(async () => {
@@ -53,9 +63,7 @@ const run = async (user, index) => {
     while (!isProxyConnected) {
       const ip = await user.http.checkProxyIP();
       if (ip === -1) {
-        user.log.logError(
-          "Proxy lỗi, kiểm tra lại kết nối proxy, sẽ thử kết nối lại sau 30s"
-        );
+        user.log.logError(lang?.index?.error_proxy);
         countRetryProxy++;
         if (countRetryProxy >= MAX_RETRY_PROXY) {
           break;
@@ -71,9 +79,9 @@ const run = async (user, index) => {
       if (countRetryProxy >= MAX_RETRY_PROXY) {
         const dataLog = `[No ${user.index} _ ID: ${
           user.info.id
-        } _ Time: ${dayjs().format(
-          "YYYY-MM-DDTHH:mm:ssZ[Z]"
-        )}] Lỗi kết nối proxy - ${user.proxy}`;
+        } _ Time: ${dayjs().format("YYYY-MM-DDTHH:mm:ssZ[Z]")}] ${
+          lang?.index?.error_proxy_log
+        } - ${user.proxy}`;
         fileHelper.writeLog("log.error.txt", dataLog);
         break;
       }
@@ -81,18 +89,18 @@ const run = async (user, index) => {
       if (countRetryLogin >= MAX_RETRY_LOGIN) {
         const dataLog = `[No ${user.index} _ ID: ${
           user.info.id
-        } _ Time: ${dayjs().format(
-          "YYYY-MM-DDTHH:mm:ssZ[Z]"
-        )}] Lỗi đăng nhập thất bại quá ${MAX_RETRY_LOGIN} lần`;
+        } _ Time: ${dayjs().format("YYYY-MM-DDTHH:mm:ssZ[Z]")}] ${
+          lang?.index?.error_login_log
+        } ${MAX_RETRY_LOGIN} ${lang?.index?.times}`;
         fileHelper.writeLog("log.error.txt", dataLog);
         break;
       }
     } catch (error) {
-      user.log.logError("Ghi lỗi thất bại");
+      user.log.logError(lang?.index?.write_log_error);
     }
 
     // Đăng nhập tài khoản
-    const login = await authService.handleLogin(user);
+    const login = await authService.handleLogin(user, lang);
     if (!login.status) {
       countRetryLogin++;
       await delayHelper.delay(60);
@@ -101,27 +109,25 @@ const run = async (user, index) => {
       countRetryLogin = 0;
     }
 
-    await dailyService.checkin(user);
-    await tribeService.handleTribe(user);
+    await dailyService.checkin(user, lang);
+    await tribeService.handleTribe(user, lang);
     if (user.database?.skipHandleTask) {
-      user.log.log(
-        colors.yellow(
-          `Tạm bỏ qua làm nhiệm vụ do lỗi server (sẽ tự động mở lại khi server ổn định)`
-        )
-      );
+      user.log.log(colors.yellow(lang?.index?.skip_task_message));
     } else {
-      await taskService.handleTask(user);
+      await taskService.handleTask(user, lang);
     }
 
-    await inviteClass.handleInvite(user);
+    await inviteClass.handleInvite(user, lang);
     let awaitTime = await farmingClass.handleFarming(
       user,
+      lang,
       login.profile?.farming
     );
     countdownList[index].time = (awaitTime + 1) * 60;
     countdownList[index].created = dayjs().unix();
     const minutesUntilNextGameStart = await gameService.handleGame(
       user,
+      lang,
       login.profile?.playPasses,
       TIME_PLAY_GAME
     );
@@ -139,38 +145,34 @@ const run = async (user, index) => {
 };
 
 console.log(
-  colors.yellow.bold(
-    `=============  Tool phát triển và chia sẻ miễn phí bởi ZuyDD  =============`
-  )
+  colors.yellow.bold(`=============  ${lang?.index?.copyright}  =============`)
 );
-console.log(
-  "Mọi hành vi buôn bán tool dưới bất cứ hình thức nào đều không được cho phép!"
-);
+console.log(lang?.index?.copyright2);
 console.log(
   `Telegram: ${colors.green(
     "https://t.me/zuydd"
   )}  ___  Facebook: ${colors.blue("https://www.facebook.com/zuy.dd")}`
 );
 console.log(
-  `🚀 Cập nhật các tool mới nhất tại: 👉 ${colors.gray(
+  `🚀 ${lang?.index?.update_guide} 👉 ${colors.gray(
     "https://github.com/zuydd"
   )} 👈`
 );
 console.log("");
 console.log(
-  `Mua, nhận miễn phí API KEY tại: 👉 ${colors.blue(
+  `${lang?.index?.buy_key_info} 👉 ${colors.blue(
     "https://zuy-web.vercel.app/blum"
   )}`
 );
 console.log("");
 console.log("");
 
-await server.checkVersion(VERSION);
-await server.showNoti();
+await server.checkVersion(VERSION, lang);
+await server.showNoti(lang);
 console.log("");
-const users = await userService.loadUser();
+const users = await userService.loadUser(lang);
 
-await keyService.handleApiKey();
+await keyService.handleApiKey(lang);
 
 for (const [index, user] of users.entries()) {
   countdownList.push({
@@ -207,11 +209,9 @@ if (IS_SHOW_COUNTDOWN && users.length) {
       process.stdout.write("\x1b[K");
       process.stdout.write(
         colors.white(
-          `[${dayjs().format(
-            "DD-MM-YYYY HH:mm:ss"
-          )}] Đã chạy hết các luồng, cần chờ: ${colors.blue(
-            datetimeHelper.formatTime(countdown)
-          )}     \r`
+          `[${dayjs().format("DD-MM-YYYY HH:mm:ss")}] ${
+            lang?.index?.countdown_message
+          } ${colors.blue(datetimeHelper.formatTime(countdown))}     \r`
         )
       );
     } else {

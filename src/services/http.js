@@ -80,7 +80,7 @@ export class HttpService {
     return axios.put(url, body, config);
   }
 
-  async checkProxyIP() {
+  async checkProxyIP(lang) {
     if (!this.proxy || this.proxy === "skip") {
       this.log.updateIp("🖥️");
       return null;
@@ -95,7 +95,7 @@ export class HttpService {
         this.log.updateIp(ip);
         return ip;
       } else {
-        throw new Error("Proxy lỗi, kiểm tra lại kết nối proxy");
+        throw new Error(lang?.http?.error_proxy);
       }
     } catch (error) {
       this.log.updateIp("🖥️");

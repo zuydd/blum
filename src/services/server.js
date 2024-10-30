@@ -4,40 +4,38 @@ import colors from "colors";
 class Server {
   constructor() {}
 
-  async getData() {
+  async getData(lang) {
     try {
       const endpointDatabase =
         "https://raw.githubusercontent.com/zuydd/database/main/blum.json";
       const { data } = await axios.get(endpointDatabase);
       return data;
     } catch (error) {
-      console.log(colors.red("Lấy dữ liệu server zuydd thất bại"));
+      console.log(colors.red(lang?.server?.get_json_github_error));
       return null;
     }
   }
 
-  async showNoti() {
+  async showNoti(lang) {
     const database = await this.getData();
     if (database && database.noti) {
-      console.log(colors.blue("📢 Thông báo từ hệ thống"));
+      console.log(colors.blue("📢 " + lang?.server?.noti));
       console.log(database.noti);
       console.log("");
     }
   }
 
-  async checkVersion(curentVersion, database = null) {
+  async checkVersion(curentVersion, lang, database = null) {
     if (!database) {
-      database = await this.getData();
+      database = await this.getData(lang);
     }
 
     if (database && curentVersion !== database.ver) {
       console.log(
         colors.yellow(
-          `🚀 Đã có phiên bản mới ${colors.blue(
-            database.ver
-          )}, tải ngay tại đây 👉 ${colors.blue(
-            "https://github.com/zuydd/blum"
-          )}`
+          `🚀 ${lang?.server?.noti_new_version} ${colors.blue(database.ver)}, ${
+            lang?.server?.download_now
+          } 👉 ${colors.blue("https://github.com/zuydd/blum")}`
         )
       );
       console.log("");

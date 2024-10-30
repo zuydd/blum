@@ -1,0 +1,97 @@
+{
+  "index": {
+    "error_proxy": "Proxy lỗi, kiểm tra lại kết nối proxy, sẽ thử kết nối lại sau 30s",
+    "error_proxy_log": "Lỗi kết nối proxy",
+    "error_login_log": "Lỗi đăng nhập thất bại quá",
+    "times": "lần",
+    "write_log_error": "Ghi lỗi thất bại",
+    "skip_task_message": "Tạm bỏ qua làm nhiệm vụ do lỗi server (sẽ tự động mở lại khi server ổn định)",
+    "copyright": "Tool phát triển và chia sẻ miễn phí bởi ZuyDD",
+    "copyright2": "Mọi hành vi buôn bán tool dưới bất cứ hình thức nào đều không được cho phép!",
+    "update_guide": "Cập nhật các tool mới nhất tại:",
+    "buy_key_info": "Mua, nhận miễn phí API KEY tại:",
+    "countdown_message": "Đã chạy hết các luồng, cần chờ:"
+  },
+  "http": {
+    "error_proxy": "Proxy lỗi, kiểm tra lại kết nối proxy"
+  },
+  "server": {
+    "get_json_github_error": "Lấy dữ liệu server zuydd thất bại",
+    "noti": "Thông báo từ hệ thống",
+    "noti_new_version": "Đã có phiên bản mới",
+    "download_now": "tải ngay tại đây"
+  },
+  "user": {
+    "not_found": "Không tìm thấy dữ liệu user"
+  },
+  "auth": {
+    "run_account": "Chạy tài khoản",
+    "login_error_msg": "Quá trình đăng nhập thất bại, vui lòng kiểm tra lại thông tin tài khoản (có thể cần phải lấy mới query_id). Hệ thống sẽ thử đăng nhập lại sau 60s",
+    "login_success": "Đăng nhập thành công: ",
+    "points": "Số điểm:",
+    "get_info_error_msg": "Lấy thông tin tài khoản thất bại",
+    "refresh_token_error_msg": "Refresh token thất bại",
+    "login_error": "Đăng nhập thất bại"
+  },
+  "daily": {
+    "checked": "Đã checkin hôm nay",
+    "checkin_success": "Checkin thành công, phần thưởng",
+    "checkin_failed": "Checkin thất bại",
+    "game_turn": "lượt chơi game"
+  },
+  "tribe": {
+    "join_tribe_success": "Tham gia thành công Tribe",
+    "join_tribe_failed": "Tham gia tribe thất bại"
+  },
+  "task": {
+    "get_task_error_msg": "Lấy danh sách nhiệm vụ thất bại",
+    "task_completed": "Đã làm hết nhiệm vụ",
+    "tasks_remaining": "Còn XXX nhiệm vụ YYY chưa hoàn thành",
+    "tasks_completed_skip": "Đã làm hết các nhiệm vụ XXX (trừ các nhiệm phải làm tay bị bỏ qua)",
+    "do_task_error_msg": "Làm nhiệm vụ XXX thất bại",
+    "task_not_answer": "Nhiệm vụ XXX chưa có câu trả lời, chờ làm lại sau",
+    "do_task_success": "Làm nhiệm vụ XXX thành công, phần thưởng",
+    "claim_task_failed": "Claim phần thưởng nhiệm vụ XXX thất bại",
+    "retry_task_error": "Chạy lại các nhiệm vụ bị lỗi...",
+    "start_task_parent_msg": "Bắt đầu làm nhiệm vụ XXX, chờ hoàn thành hết các nhiệm vụ con để nhận thưởng",
+    "task_done_msg": "Đã hoàn thành nhiệm vụ",
+    "task_failed_msg": "Làm nhiệm vụ XXX thất bại",
+    "not_completed_subtask": "Chưa hoàn thành hết các nhiệm vụ con của task"
+  },
+  "invite": {
+    "get_info_failed": "Lấy thông tin invite balance thất bại",
+    "claim_success": "Claim điểm giới thiệu thành công, nhận được",
+    "claim_failed": "Claim điểm giới thiệu thất bại"
+  },
+  "game": {
+    "can": "có thể",
+    "notcan": "không thể",
+    "claim_dogs": "nhặt DOGS",
+    "game_remaining": "Còn XXX lượt chơi game",
+    "no_api_key": "Không có API KEY, bỏ qua chơi game",
+    "key_limit_used": "Đã dùng hết lượt chơi game của API KEY. Liên hệ Telegram @zuydd để mua thêm",
+    "start_game_msg": "Bắt đầu chơi game, kết thúc và nhận thưởng sau",
+    "start_game_failed": "Chơi game thất bại",
+    "claim_success": "Chơi game xong, phần thưởng",
+    "claim_failed": "Nhận thưởng chơi game thất bại",
+    "not_found_server_free": "Không còn máy chủ miễn phí nào hoạt động!",
+    "create_payload_failed": "Tạo payload thất bại",
+    "used_turns": "Đã dùng hết lượt chơi game",
+    "skip_play_game_msg": "Đã cài đặt không thể chơi game trong khoảng thời gian này, lần chơi tiếp theo sau",
+    "minute": "phút"
+  },
+  "key": {
+    "key_invalid": "API KEY không hợp lệ, liên hệ Telegram @zuydd để nhận/mua API KEY",
+    "key_remaining": "Còn XXX lượt sử dụng",
+    "enter_key": "Nhập API KEY chơi game của bạn? Để trống nếu bạn không có (sẽ bỏ qua chơi game trong quá trình chạy tool)"
+  },
+  "farming": {
+    "start_farming_msg": "Đã bắt đầu farming, chờ claim sau",
+    "time_farming": "480 phút",
+    "start_farming_failed": "Bắt đầu farming thất bại",
+    "claim_farming_success": "Claim farming thành công, phần thưởng",
+    "claim_farming_failed": "Claim farming thất bại",
+    "countdown_farming_msg": "Chưa tới thời gian claim, chờ sau",
+    "minute": "phút"
+  }
+}

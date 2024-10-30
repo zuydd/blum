@@ -1,0 +1,97 @@
+{
+  "index": {
+    "error_proxy": "Proxy error, check the proxy connection, will try to reconnect after 30s",
+    "error_proxy_log": "Proxy connection error",
+    "error_login_log": "Login failure error",
+    "times": "times",
+    "write_log_error": "Failed to log error",
+    "skip_task_message": "Temporarily skipping task due to server error (will resume when the server stabilizes)",
+    "copyright": "Tool developed and shared for free by ZuyDD",
+    "copyright2": "Any act of selling this tool in any form is not allowed!",
+    "update_guide": "Update the latest tools at:",
+    "buy_key_info": "Buy or receive a free API KEY at:",
+    "countdown_message": "All threads have run, need to wait:"
+  },
+  "http": {
+    "error_proxy": "Proxy error, check the proxy connection"
+  },
+  "server": {
+    "get_json_github_error": "Failed to fetch data from zuydd server",
+    "noti": "System notification",
+    "noti_new_version": "A new version is available",
+    "download_now": "download here"
+  },
+  "user": {
+    "not_found": "User data not found"
+  },
+  "auth": {
+    "run_account": "Running account",
+    "login_error_msg": "Login process failed, please check the account information (you may need to obtain a new query_id). The system will attempt to log in again after 60s",
+    "login_success": "Login successful: ",
+    "points": "Points:",
+    "get_info_error_msg": "Failed to fetch account information",
+    "refresh_token_error_msg": "Failed to refresh token",
+    "login_error": "Login failed"
+  },
+  "daily": {
+    "checked": "Checked in today",
+    "checkin_success": "Check-in successful, reward",
+    "checkin_failed": "Check-in failed",
+    "game_turn": "game turn"
+  },
+  "tribe": {
+    "join_tribe_success": "Successfully joined Tribe",
+    "join_tribe_failed": "Failed to join tribe"
+  },
+  "task": {
+    "get_task_error_msg": "Failed to retrieve task list",
+    "task_completed": "All tasks completed",
+    "tasks_remaining": "XXX tasks YYY remaining",
+    "tasks_completed_skip": "All tasks XXX completed (excluding manual tasks skipped)",
+    "do_task_error_msg": "Failed to complete task XXX",
+    "task_not_answer": "Task XXX has no answer, retrying later",
+    "do_task_success": "Task XXX completed successfully, reward",
+    "claim_task_failed": "Failed to claim reward for task XXX",
+    "retry_task_error": "Retrying failed tasks...",
+    "start_task_parent_msg": "Starting task XXX, waiting for all subtasks to complete to claim reward",
+    "task_done_msg": "Task completed",
+    "task_failed_msg": "Task XXX failed",
+    "not_completed_subtask": "All subtasks of the task are not yet completed"
+  },
+  "invite": {
+    "get_info_failed": "Failed to retrieve invite balance information",
+    "claim_success": "Successfully claimed referral points, received",
+    "claim_failed": "Failed to claim referral points"
+  },
+  "game": {
+    "can": "can",
+    "notcan": "cannot",
+    "claim_dogs": "claim DOGS",
+    "game_remaining": "XXX game plays remaining",
+    "no_api_key": "No API KEY, skipping game",
+    "key_limit_used": "API KEY game play limit reached. Contact Telegram @zuydd to purchase more",
+    "start_game_msg": "Starting game, finish and claim reward after",
+    "start_game_failed": "Game failed",
+    "claim_success": "Game completed, reward",
+    "claim_failed": "Failed to claim game reward",
+    "not_found_server_free": "No free servers available!",
+    "create_payload_failed": "Failed to create payload",
+    "used_turns": "All game turns used",
+    "skip_play_game_msg": "Configured to skip game during this time, next play after",
+    "minute": "minutes"
+  },
+  "key": {
+    "key_invalid": "Invalid API KEY, contact Telegram @zuydd to receive/buy an API KEY",
+    "key_remaining": "XXX uses remaining",
+    "enter_key": "Enter your game API KEY? Leave blank if you don't have one (will skip game during tool operation)"
+  },
+  "farming": {
+    "start_farming_msg": "Farming started, wait to claim later",
+    "time_farming": "480 minutes",
+    "start_farming_failed": "Failed to start farming",
+    "claim_farming_success": "Farming claim successful, reward",
+    "claim_farming_failed": "Farming claim failed",
+    "countdown_farming_msg": "Claim time not reached, wait until later",
+    "minute": "minutes"
+  }
+}

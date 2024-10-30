@@ -5,7 +5,7 @@ import tokenHelper from "../helpers/token.js";
 class AuthService {
   constructor() {}
 
-  async login(user, skipLog = false) {
+  async login(user, lang, skipLog = false) {
     user.http.updateToken(null);
     user.http.updateRefreshToken(null);
     const body = {
@@ -28,14 +28,14 @@ class AuthService {
     } catch (error) {
       if (!skipLog) {
         user.log.logError(
-          `Đăng nhập thất bại: ${error.response?.data?.message}`
+          `${lang?.auth?.login_error}: ${error.response?.data?.message}`
         );
       }
       return null;
     }
   }
 
-  async refresh(user, refreshToken, skipLog = false) {
+  async refresh(user, lang, refreshToken, skipLog = false) {
     user.http.updateToken(null);
     user.http.updateRefreshToken(null);
     const body = {
@@ -53,16 +53,16 @@ class AuthService {
     } catch (error) {
       if (!skipLog) {
         user.log.logError(
-          `Refresh token thất bại: ${error.response?.data?.message}`
+          `${lang?.auth?.refresh_token_error_msg}: ${error.response?.data?.message}`
         );
       }
       return null;
     }
   }
 
-  async handleLogin(user) {
+  async handleLogin(user, lang) {
     console.log(
-      `============== Chạy tài khoản ${user.index} | ${user.info.fullName.green} ==============`
+      `============== ${lang?.auth?.run_account} ${user.index} | ${user.info.fullName.green} ==============`
     );
 
     let info = null;
@@ -73,44 +73,30 @@ class AuthService {
         access: token.access,
         refresh: token.refresh,
       };
-      const profile = await this.handleAfterLogin(user, info);
+      const profile = await this.handleAfterLogin(user, lang, info);
       return {
         status: 1,
         profile,
       };
     }
 
-    // if (token && tokenHelper.isExpired(token.access)) {
-    //   info = await this.refresh(user, token.refresh);
-    //   if (info) {
-    //     const profile = await this.handleAfterLogin(user, info);
-
-    //     return {
-    //       status: 1,
-    //       profile,
-    //     };
-    //   }
-    // }
-
-    let infoLogin = await this.login(user);
+    let infoLogin = await this.login(user, lang);
 
     if (infoLogin) {
-      const profile = await this.handleAfterLogin(user, infoLogin);
+      const profile = await this.handleAfterLogin(user, lang, infoLogin);
       return {
         status: 1,
         profile,
       };
     }
-    user.log.logError(
-      "Quá trình đăng nhập thất bại, vui lòng kiểm tra lại thông tin tài khoản (có thể cần phải lấy mới query_id). Hệ thống sẽ thử đăng nhập lại sau 60s"
-    );
+    user.log.logError(lang?.auth?.login_error_msg);
     return {
       status: 0,
       profile: null,
     };
   }
 
-  async getProfile(user) {
+  async getProfile(user, lang) {
     try {
       const { data } = await user.http.get(0, "user/balance");
       if (data) {
@@ -119,13 +105,13 @@ class AuthService {
       return null;
     } catch (error) {
       user.log.logError(
-        `Lấy thông tin tài khoản thất bại: ${error.response?.data?.message}`
+        `${lang?.auth?.get_info_error_msg}: ${error.response?.data?.message}`
       );
       return null;
     }
   }
 
-  async reconnect(user) {
+  async reconnect(user, lang) {
     let info = null;
     let token = fileHelper.getTokenById(user.info.id);
 
@@ -134,14 +120,14 @@ class AuthService {
       tokenHelper.isExpired(token.access) &&
       !tokenHelper.isExpired(token.refresh)
     ) {
-      info = await this.refresh(user, token.refresh, true);
+      info = await this.refresh(user, lang, token.refresh, true);
       if (info) {
         await this.handleAfterReconnect(user, info);
         return 1;
       }
     }
 
-    let infoLogin = await this.login(user, true);
+    let infoLogin = await this.login(user, lang, true);
 
     if (infoLogin) {
       await this.handleAfterReconnect(user, infoLogin);
@@ -153,24 +139,24 @@ class AuthService {
     return 0;
   }
 
-  async handleAfterLogin(user, info) {
+  async handleAfterLogin(user, lang, info) {
     const accessToken = info.access || null;
     const refreshToken = info.refresh || null;
     user.http.updateToken(accessToken);
     user.http.updateRefreshToken(refreshToken);
     fileHelper.saveToken(user.info.id, info);
-    const profile = await this.getProfile(user);
+    const profile = await this.getProfile(user, lang);
     if (profile) {
       user.log.log(
-        colors.green("Đăng nhập thành công: ") +
-          `Số điểm: ${
+        colors.green(lang?.auth?.login_success) +
+          `${lang?.auth?.points} ${
             colors.green(Math.round(profile?.availableBalance)) + user.currency
           }`
       );
       if (!user.http.isConnected) {
         user.http.updateConnect(true);
         setInterval(async () => {
-          await this.reconnect(user);
+          await this.reconnect(user, lang);
         }, 60 * 1000 * 20);
       }
     }

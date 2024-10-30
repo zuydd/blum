@@ -17,26 +17,28 @@ class DailyService {
     }
   }
 
-  async checkin(user) {
+  async checkin(user, lang) {
     const dataCheckin = await this.getDataCheckin(user);
     if (dataCheckin === 1) {
-      user.log.log(colors.magenta("Đã checkin hôm nay"));
+      user.log.log(colors.magenta(lang?.daily?.checked));
     } else if (dataCheckin?.reward) {
       try {
         const { data } = await user.http.post(0, "daily-reward?offset=-420");
         if (data) {
           user.log.log(
-            `Checkin thành công, phần thưởng: ${colors.green(
-              dataCheckin.reward.passes + " lượt"
-            )} chơi game - ${colors.green(
+            `${lang?.daily?.checkin_success}: ${colors.green(
+              dataCheckin.reward.passes
+            )} ${lang?.daily?.game_turn} - ${colors.green(
               dataCheckin.reward.points + user.currency
             )}`
           );
         } else {
-          throw new Error(`Checkin thất bại: ${data.message}`);
+          throw new Error(`${lang?.daily?.checkin_failed}: ${data.message}`);
         }
       } catch (error) {
-        user.log.logError(`Checkin thất bại: ${error.response?.data?.message}`);
+        user.log.logError(
+          `${lang?.daily?.checkin_failed}: ${error.response?.data?.message}`
+        );
         return null;
       }
     }

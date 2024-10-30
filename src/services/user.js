@@ -11,7 +11,7 @@ import server from "./server.js";
 class UserService {
   constructor() {}
 
-  async loadUser() {
+  async loadUser(lang) {
     const rawUsers = fileHelper.readFile("users.txt");
     const rawProxies = fileHelper.readFile("proxy.txt");
     const rawDevices = fileHelper.readFile("device.txt");
@@ -30,7 +30,7 @@ class UserService {
       .filter((line) => line.length > 0);
 
     if (users.length <= 0) {
-      console.log(colors.red(`Không tìm thấy dữ liệu user`));
+      console.log(colors.red(lang?.user?.not_found));
       return [];
     } else {
       let database = {};

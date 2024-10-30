@@ -1,0 +1,97 @@
+{
+  "index": {
+    "error_proxy": "Proxy error, periksa kembali koneksi proxy, akan mencoba menghubungkan kembali setelah 30 detik",
+    "error_proxy_log": "Kesalahan koneksi proxy",
+    "error_login_log": "Kesalahan login gagal",
+    "times": "kali",
+    "write_log_error": "Gagal mencatat kesalahan",
+    "skip_task_message": "Sementara melewati tugas karena kesalahan server (akan otomatis melanjutkan saat server stabil)",
+    "copyright": "Alat ini dikembangkan dan dibagikan gratis oleh ZuyDD",
+    "copyright2": "Setiap tindakan menjual alat dalam bentuk apa pun tidak diizinkan!",
+    "update_guide": "Perbarui alat terbaru di:",
+    "buy_key_info": "Beli atau dapatkan API KEY gratis di:",
+    "countdown_message": "Semua alur telah selesai, tunggu:"
+  },
+  "http": {
+    "error_proxy": "Proxy error, periksa kembali koneksi proxy"
+  },
+  "server": {
+    "get_json_github_error": "Gagal mengambil data dari server zuydd",
+    "noti": "Pemberitahuan dari sistem",
+    "noti_new_version": "Versi baru tersedia",
+    "download_now": "unduh di sini"
+  },
+  "user": {
+    "not_found": "Data pengguna tidak ditemukan"
+  },
+  "auth": {
+    "run_account": "Menjalankan akun",
+    "login_error_msg": "Proses login gagal, silakan periksa informasi akun (mungkin perlu mendapatkan query_id baru). Sistem akan mencoba login kembali dalam 60 detik",
+    "login_success": "Login berhasil: ",
+    "points": "Jumlah poin:",
+    "get_info_error_msg": "Gagal mengambil informasi akun",
+    "refresh_token_error_msg": "Gagal memperbarui token",
+    "login_error": "Login gagal"
+  },
+  "daily": {
+    "checked": "Sudah check-in hari ini",
+    "checkin_success": "Check-in berhasil, hadiah",
+    "checkin_failed": "Check-in gagal",
+    "game_turn": "giliran bermain game"
+  },
+  "tribe": {
+    "join_tribe_success": "Berhasil bergabung dengan Tribe",
+    "join_tribe_failed": "Gagal bergabung dengan Tribe"
+  },
+  "task": {
+    "get_task_error_msg": "Gagal mengambil daftar tugas",
+    "task_completed": "Semua tugas telah selesai",
+    "tasks_remaining": "Masih ada XXX tugas YYY yang belum selesai",
+    "tasks_completed_skip": "Semua tugas XXX telah selesai (kecuali tugas manual yang dilewati)",
+    "do_task_error_msg": "Gagal menjalankan tugas XXX",
+    "task_not_answer": "Tugas XXX belum ada jawabannya, coba lagi nanti",
+    "do_task_success": "Tugas XXX berhasil diselesaikan, hadiah",
+    "claim_task_failed": "Gagal klaim hadiah untuk tugas XXX",
+    "retry_task_error": "Mengulangi tugas yang gagal...",
+    "start_task_parent_msg": "Memulai tugas XXX, tunggu hingga semua sub-tugas selesai untuk klaim hadiah",
+    "task_done_msg": "Tugas selesai",
+    "task_failed_msg": "Tugas XXX gagal",
+    "not_completed_subtask": "Belum semua sub-tugas dari tugas selesai"
+  },
+  "invite": {
+    "get_info_failed": "Gagal mengambil informasi saldo undangan",
+    "claim_success": "Klaim poin referensi berhasil, diterima",
+    "claim_failed": "Gagal klaim poin referensi"
+  },
+  "game": {
+    "can": "dapat",
+    "notcan": "tidak dapat",
+    "claim_dogs": "ambil DOGS",
+    "game_remaining": "Tersisa XXX giliran bermain game",
+    "no_api_key": "Tidak ada API KEY, melewati permainan",
+    "key_limit_used": "Batas giliran bermain game untuk API KEY telah habis. Hubungi Telegram @zuydd untuk membeli lebih lanjut",
+    "start_game_msg": "Memulai game, akan selesai dan klaim hadiah setelah",
+    "start_game_failed": "Permainan gagal",
+    "claim_success": "Permainan selesai, hadiah",
+    "claim_failed": "Gagal klaim hadiah permainan",
+    "not_found_server_free": "Tidak ada server gratis yang berfungsi!",
+    "create_payload_failed": "Gagal membuat payload",
+    "used_turns": "Semua giliran bermain game telah habis",
+    "skip_play_game_msg": "Diatur untuk tidak bermain dalam waktu ini, giliran berikutnya setelah",
+    "minute": "menit"
+  },
+  "key": {
+    "key_invalid": "API KEY tidak valid, hubungi Telegram @zuydd untuk mendapatkan/membeli API KEY",
+    "key_remaining": "Tersisa XXX penggunaan",
+    "enter_key": "Masukkan API KEY untuk bermain game? Biarkan kosong jika tidak punya (akan melewati permainan saat alat dijalankan)"
+  },
+  "farming": {
+    "start_farming_msg": "Farming dimulai, klaim nanti",
+    "time_farming": "480 menit",
+    "start_farming_failed": "Gagal memulai farming",
+    "claim_farming_success": "Klaim farming berhasil, hadiah",
+    "claim_farming_failed": "Klaim farming gagal",
+    "countdown_farming_msg": "Belum waktu untuk klaim, tunggu",
+    "minute": "menit"
+  }
+}

@@ -55,6 +55,16 @@
 > - Nếu gặp lỗi đăng nhập, làm nhiệm vụ hay chơi game thì là do server của blum nó lỏ chứ không phải lỗi tool, cứ kệ nó, hồi nó quay lại làm sau khi hết lỗi.
 > - Vì server nó hay lỗi vào khung giờ 14h-24h nên khuyến khích ae chạy tool lần đầu vào khung giờ 4h-12h để chạy mượt mà nhé
 
+## 🌐 Cài đặt ngôn ngữ
+
+- Để thay đổi ngôn ngữ cho tool vui lòng tìm biến `LANGUAGE = "vi"` trong file [index.js](src/run/index.js) sau đó đổi lại thành mã ngôn ngữ phù hợp.
+- Danh sách các ngôn ngữ được hỗ trợ
+  - vi: Tiếng Việt
+  - en: English
+  - ru: русский язык
+  - id: Bahasa Indonèsia
+  - zh: 中国话
+
 ## ♾ Cài đặt đa luồng
 
 - Mặc định tool sẽ chạy đa luồng ứng với số tài khoản bạn nhập vào, không cần cài đặt thêm gì cả.
@@ -69,8 +79,14 @@
 
 > Khi cập nhật phiên bản mới chỉ cần copy thư mục 📁 [data](src/data) của bản cũ ghi đè lại ở bản mới là có thể chạy được mà không cần lấy lại data
 
-> Phiên bản mới nhất: `v0.2.1`
+> Phiên bản mới nhất: `v0.2.2`
 
+<details>
+<summary>v0.2.2 - 📅 30/10/2024</summary>
+  
+- Random máy chủ
+- Thêm tuỳ chọn ngôn ngữ
+</details>
 <details>
 <summary>v0.2.1 - 📅 23/10/2024</summary>
   

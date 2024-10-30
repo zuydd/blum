@@ -9,43 +9,41 @@ class InviteClass {
       if (data) {
         return data;
       } else {
-        throw new Error(
-          `Lấy thông tin invite balance thất bại: ${data.message}`
-        );
+        throw new Error(`${lang?.invite?.get_info_failed}: ${data.message}`);
       }
     } catch (error) {
       user.log.logError(
-        `Lấy thông tin invite balance thất bại: ${error.response?.data?.message}`
+        `${lang?.invite?.get_info_failed}: ${error.response?.data?.message}`
       );
       return 0;
     }
   }
 
-  async claimInvite(user) {
+  async claimInvite(user, lang) {
     try {
       const { data } = await user.http.post(3, "friends/claim", {});
       if (data) {
         user.log.log(
-          `Claim điểm giới thiệu thành công, nhận được: ${colors.green(
+          `${lang?.invite?.claim_success}: ${colors.green(
             data?.claimBalance + user.currency
           )}`
         );
         return true;
       } else {
-        throw new Error(`Claim điểm giới thiệu thất bại: ${data.message}`);
+        throw new Error(`${lang?.invite?.claim_failed}: ${data.message}`);
       }
     } catch (error) {
       user.log.logError(
-        `Claim điểm giới thiệu thất bại: ${error.response?.data?.message}`
+        `${lang?.invite?.claim_failed}: ${error.response?.data?.message}`
       );
       return false;
     }
   }
 
-  async handleInvite(user) {
-    const balance = await this.getBalanceInvite(user);
+  async handleInvite(user, lang) {
+    const balance = await this.getBalanceInvite(user, lang);
     if (balance.amountForClaim > 0 && balance.canClaim) {
-      await this.claimInvite(user);
+      await this.claimInvite(user, lang);
     }
   }
 }

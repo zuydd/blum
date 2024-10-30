@@ -4,65 +4,75 @@ import dayjs from "dayjs";
 class FarmingClass {
   constructor() {}
 
-  async startFarming(user) {
+  async startFarming(user, lang) {
     try {
       const { data } = await user.http.post(0, "farming/start", {});
       if (data) {
         user.log.log(
-          `Đã bắt đầu farming, chờ claim sau: ${colors.blue("480 phút")}`
+          `${lang?.farming?.start_farming_msg}: ${colors.blue(
+            lang?.farming?.time_farming
+          )}`
         );
         return true;
       } else {
-        throw new Error(`Bắt đầu farming thất bại: ${data.message}`);
+        throw new Error(
+          `${lang?.farming?.start_farming_failed}: ${data.message}`
+        );
       }
     } catch (error) {
       user.log.logError(
-        `Bắt đầu farming thất bại: ${error.response?.data?.message}`
+        `${lang?.farming?.start_farming_failed}: ${error.response?.data?.message}`
       );
       return false;
     }
   }
 
-  async claimFarming(user, balance) {
+  async claimFarming(user, lang, balance) {
     try {
       const { data } = await user.http.post(0, "farming/claim", {});
       if (data) {
         user.log.log(
-          `Claim farming thành công, phần thưởng: ${colors.green(
+          `${lang?.farming?.claim_farming_success}: ${colors.green(
             balance + user.currency
           )}`
         );
         return true;
       } else {
-        throw new Error(`Claim farming thất bại: ${data.message}`);
+        throw new Error(
+          `${lang?.farming?.claim_farming_failed}: ${data.message}`
+        );
       }
     } catch (error) {
       user.log.logError(
-        `Claim farming thất bại: ${error.response?.data?.message}`
+        `${lang?.farming?.claim_farming_failed}: ${error.response?.data?.message}`
       );
       return false;
     }
   }
 
-  async handleFarming(user, infoFarming) {
+  async handleFarming(user, lang, infoFarming) {
     if (!infoFarming) {
-      await this.startFarming(user);
+      await this.startFarming(user, lang);
       return 480;
     } else {
       const diffTimeClaim = dayjs().diff(dayjs(infoFarming?.endTime), "minute");
 
       if (diffTimeClaim > 0) {
-        const statusClaim = await this.claimFarming(user, infoFarming?.balance);
+        const statusClaim = await this.claimFarming(
+          user,
+          lang,
+          infoFarming?.balance
+        );
         if (statusClaim) {
-          await this.startFarming(user);
+          await this.startFarming(user, lang);
           return 480;
         } else {
           return 5;
         }
       } else {
         user.log.log(
-          `Chưa tới thời gian claim, chờ sau: ${colors.blue(
-            Math.abs(diffTimeClaim) + " phút"
+          `${lang?.farming?.countdown_farming_msg}: ${colors.blue(
+            Math.abs(diffTimeClaim) + " " + lang?.farming?.minute
           )}`
         );
         return Math.abs(diffTimeClaim);

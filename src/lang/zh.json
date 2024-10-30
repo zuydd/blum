@@ -1,0 +1,97 @@
+{
+  "index": {
+    "error_proxy": "代理错误，请检查代理连接，将在30秒后重试连接",
+    "error_proxy_log": "代理连接错误",
+    "error_login_log": "登录失败错误",
+    "times": "次",
+    "write_log_error": "记录错误失败",
+    "skip_task_message": "由于服务器错误，暂时跳过任务（服务器稳定后将自动恢复）",
+    "copyright": "工具由ZuyDD免费开发和分享",
+    "copyright2": "任何形式的工具买卖行为均不允许！",
+    "update_guide": "在此更新最新的工具：",
+    "buy_key_info": "购买或免费获取API KEY地址：",
+    "countdown_message": "所有线程已运行，需等待："
+  },
+  "http": {
+    "error_proxy": "代理错误，请检查代理连接"
+  },
+  "server": {
+    "get_json_github_error": "获取zuydd服务器数据失败",
+    "noti": "系统通知",
+    "noti_new_version": "新版本已发布",
+    "download_now": "立即下载"
+  },
+  "user": {
+    "not_found": "未找到用户数据"
+  },
+  "auth": {
+    "run_account": "运行账户",
+    "login_error_msg": "登录过程失败，请检查账户信息（可能需要重新获取query_id）。系统将在60秒后重试登录",
+    "login_success": "登录成功：",
+    "points": "积分：",
+    "get_info_error_msg": "获取账户信息失败",
+    "refresh_token_error_msg": "刷新令牌失败",
+    "login_error": "登录失败"
+  },
+  "daily": {
+    "checked": "今天已签到",
+    "checkin_success": "签到成功，奖励",
+    "checkin_failed": "签到失败",
+    "game_turn": "游戏回合"
+  },
+  "tribe": {
+    "join_tribe_success": "成功加入部落",
+    "join_tribe_failed": "加入部落失败"
+  },
+  "task": {
+    "get_task_error_msg": "获取任务列表失败",
+    "task_completed": "所有任务已完成",
+    "tasks_remaining": "还剩XXX个任务YYY未完成",
+    "tasks_completed_skip": "已完成所有任务XXX（跳过的手动任务除外）",
+    "do_task_error_msg": "执行任务XXX失败",
+    "task_not_answer": "任务XXX没有答案，稍后重试",
+    "do_task_success": "任务XXX成功完成，奖励",
+    "claim_task_failed": "任务XXX奖励领取失败",
+    "retry_task_error": "重试失败的任务...",
+    "start_task_parent_msg": "开始任务XXX，等待所有子任务完成以领取奖励",
+    "task_done_msg": "任务已完成",
+    "task_failed_msg": "任务XXX失败",
+    "not_completed_subtask": "任务的所有子任务未完成"
+  },
+  "invite": {
+    "get_info_failed": "获取邀请余额信息失败",
+    "claim_success": "成功领取邀请积分，获得",
+    "claim_failed": "领取邀请积分失败"
+  },
+  "game": {
+    "can": "可以",
+    "notcan": "不能",
+    "claim_dogs": "领取DOGS",
+    "game_remaining": "剩余XXX次游戏回合",
+    "no_api_key": "没有API KEY，跳过游戏",
+    "key_limit_used": "API KEY的游戏回合次数已用完。请联系Telegram @zuydd购买更多",
+    "start_game_msg": "开始游戏，稍后完成并领取奖励",
+    "start_game_failed": "游戏失败",
+    "claim_success": "游戏结束，奖励",
+    "claim_failed": "领取游戏奖励失败",
+    "not_found_server_free": "没有可用的免费服务器！",
+    "create_payload_failed": "创建payload失败",
+    "used_turns": "所有游戏回合已用完",
+    "skip_play_game_msg": "设置为在此期间无法进行游戏，下次游戏在",
+    "minute": "分钟"
+  },
+  "key": {
+    "key_invalid": "API KEY无效，请联系Telegram @zuydd获取/购买API KEY",
+    "key_remaining": "剩余XXX次使用",
+    "enter_key": "请输入您的游戏API KEY？如果没有请留空（工具运行时将跳过游戏）"
+  },
+  "farming": {
+    "start_farming_msg": "已开始farming，稍后领取",
+    "time_farming": "480分钟",
+    "start_farming_failed": "开始farming失败",
+    "claim_farming_success": "成功领取farming奖励",
+    "claim_farming_failed": "领取farming奖励失败",
+    "countdown_farming_msg": "未到领取时间，请稍后",
+    "minute": "分钟"
+  }
+}

@@ -3,7 +3,7 @@ import colors from "colors";
 class InviteClass {
   constructor() {}
 
-  async getBalanceInvite(user) {
+  async getBalanceInvite(user, lang) {
     try {
       const { data } = await user.http.get(3, "friends/balance");
       if (data) {

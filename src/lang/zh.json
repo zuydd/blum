@@ -6,6 +6,7 @@
     "times": "次",
     "write_log_error": "记录错误失败",
     "skip_task_message": "由于服务器错误，暂时跳过任务（服务器稳定后将自动恢复）",
+    "skip_game_message": "由于有新更新，暂时暂停游戏。更新完成后将重新开放",
     "copyright": "工具由ZuyDD免费开发和分享",
     "copyright2": "任何形式的工具买卖行为均不允许！",
     "update_guide": "在此更新最新的工具：",

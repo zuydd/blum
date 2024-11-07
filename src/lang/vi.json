@@ -6,6 +6,7 @@
     "times": "lần",
     "write_log_error": "Ghi lỗi thất bại",
     "skip_task_message": "Tạm bỏ qua làm nhiệm vụ do lỗi server (sẽ tự động mở lại khi server ổn định)",
+    "skip_game_message": "Tạm bỏ qua chơi game do có cập nhật mới, sẽ mở lại khi cập nhật xong",
     "copyright": "Tool phát triển và chia sẻ miễn phí bởi ZuyDD",
     "copyright2": "Mọi hành vi buôn bán tool dưới bất cứ hình thức nào đều không được cho phép!",
     "update_guide": "Cập nhật các tool mới nhất tại:",

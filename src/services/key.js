@@ -2,6 +2,7 @@ import axios from "axios";
 import colors from "colors";
 import inquirer from "inquirer";
 import fileHelper from "../helpers/file.js";
+import generatorHelper from "../helpers/generator.js";
 import gameService from "./game.js";
 import server from "./server.js";
 
@@ -31,14 +32,18 @@ class KeyService {
 
   async checkKey(database, apiKey) {
     try {
-      const URL = database?.server?.pro[0].url;
+      const indexServer = generatorHelper.randomInt(
+        0,
+        database?.server?.pro?.length - 1
+      );
+      const URL = database?.server?.pro[indexServer].url;
       const endpoint = `${URL}blum/check-limit`;
-
       const { data } = await axios.get(endpoint, {
         headers: {
           "X-API-KEY": apiKey,
         },
       });
+
       return data;
     } catch (error) {
       return null;

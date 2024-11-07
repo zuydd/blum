@@ -6,6 +6,7 @@
     "times": "kali",
     "write_log_error": "Gagal mencatat kesalahan",
     "skip_task_message": "Sementara melewati tugas karena kesalahan server (akan otomatis melanjutkan saat server stabil)",
+    "skip_game_message": "Sementara menghentikan permainan karena ada pembaruan baru. Akan dibuka kembali setelah pembaruan selesai.",
     "copyright": "Alat ini dikembangkan dan dibagikan gratis oleh ZuyDD",
     "copyright2": "Setiap tindakan menjual alat dalam bentuk apa pun tidak diizinkan!",
     "update_guide": "Perbarui alat terbaru di:",

@@ -48,7 +48,8 @@ class GameService {
   }
 
   async claimGame(user, lang, gameId, eligibleDogs) {
-    let points = generatorHelper.randomInt(280, 300);
+    const randomPoints = user?.database?.randomPoints || [150, 190];
+    let points = generatorHelper.randomInt(randomPoints[0], randomPoints[1]);
     let dogs = 0;
     if (eligibleDogs) {
       points = generatorHelper.randomInt(150, 180);
@@ -104,6 +105,7 @@ class GameService {
         if (servers.length) {
           const randomServer = generatorHelper.randomInt(0, servers.length - 1);
           server = servers[randomServer].url;
+          // server = "http://localhost:3000/api/";
         } else {
           return null;
         }

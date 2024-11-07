@@ -6,6 +6,7 @@
     "times": "times",
     "write_log_error": "Failed to log error",
     "skip_task_message": "Temporarily skipping task due to server error (will resume when the server stabilizes)",
+    "skip_game_message": "Temporarily pausing the game due to a new update. It will reopen once the update is complete.",
     "copyright": "Tool developed and shared for free by ZuyDD",
     "copyright2": "Any act of selling this tool in any form is not allowed!",
     "update_guide": "Update the latest tools at:",

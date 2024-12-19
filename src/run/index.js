@@ -15,7 +15,7 @@ import taskService from "../services/task.js";
 import tribeService from "../services/tribe.js";
 import userService from "../services/user.js";
 
-const VERSION = "v0.2.4";
+const VERSION = "v0.2.5";
 // Change language
 // vi: Tiếng Việt
 // en: English

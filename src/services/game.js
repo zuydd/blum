@@ -61,8 +61,8 @@ class GameService {
 
     const body = { payload };
     try {
-      const { data } = await user.http.post(5, "game/claim", body);
-      if (data) {
+      const { text } = await user.http.post(5, "game/claim", body);
+      if (text === "OK") {
         user.log.log(
           `${lang?.game?.claim_success}: ${colors.green(
             points + user.currency
@@ -70,7 +70,7 @@ class GameService {
         );
         return true;
       } else {
-        throw new Error(`${lang?.game?.claim_failed}: ${data.message}`);
+        throw new Error(`${lang?.game?.claim_failed}: ${data?.message}`);
       }
     } catch (error) {
       user.log.logError(

@@ -79,8 +79,13 @@
 
 > Khi cập nhật phiên bản mới chỉ cần copy thư mục 📁 [data](src/data) của bản cũ ghi đè lại ở bản mới là có thể chạy được mà không cần lấy lại data
 
-> Phiên bản mới nhất: `v0.2.4`
+> Phiên bản mới nhất: `v0.2.5`
 
+<details>
+<summary>v0.2.5 - 📅 19/12/2024</summary>
+  
+- Bypass Cloudflare
+</details>
 <details>
 <summary>v0.2.4 - 📅 07/11/2024</summary>
   

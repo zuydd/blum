@@ -6,8 +6,11 @@ class DailyService {
   async getDataCheckin(user) {
     try {
       const { data } = await user.http.get(0, "daily-reward?offset=-420");
-      if (data) {
-        return data?.days[2];
+
+      if (data?.days) {
+        return data.days[2];
+      } else if (data.message === "Not Found") {
+        return 1;
       }
     } catch (error) {
       if (error.status === 404 && error.response.data.message === "Not Found") {
@@ -23,8 +26,12 @@ class DailyService {
       user.log.log(colors.magenta(lang?.daily?.checked));
     } else if (dataCheckin?.reward) {
       try {
-        const { data } = await user.http.post(0, "daily-reward?offset=-420");
-        if (data) {
+        const { text, data } = await user.http.post(
+          0,
+          "daily-reward?offset=-420"
+        );
+
+        if (text === "OK") {
           user.log.log(
             `${lang?.daily?.checkin_success}: ${colors.green(
               dataCheckin.reward.passes
@@ -33,7 +40,7 @@ class DailyService {
             )}`
           );
         } else {
-          throw new Error(`${lang?.daily?.checkin_failed}: ${data.message}`);
+          throw new Error(`${lang?.daily?.checkin_failed}: ${data?.message}`);
         }
       } catch (error) {
         user.log.logError(

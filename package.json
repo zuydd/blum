@@ -1,6 +1,6 @@
 {
   "name": "auto_blum",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Tool tự động làm airdrop Blum",
   "type": "module",
   "main": "src/run/index.js",
@@ -20,6 +20,7 @@
     "he": "^1.2.0",
     "https-proxy-agent": "^7.0.5",
     "inquirer": "^10.1.8",
+    "tls-client": "^0.0.5",
     "ws": "^8.18.0",
     "yargs": "^17.7.2"
   },

@@ -106,8 +106,9 @@ class TaskService {
       taskName = `${task.title} ${task.target} ${task.postfix}`;
     }
     try {
-      const { data } = await user.http.post(4, param, {});
-      if (data && data.status === "FINISHED") {
+      const { data, ok } = await user.http.post(4, param, {});
+
+      if (ok && data && data.status === "FINISHED") {
         if (showLog) {
           const msg = lang?.task?.do_task_success.replace(
             "XXX",
@@ -119,9 +120,9 @@ class TaskService {
       } else {
         const msg = lang?.task?.claim_task_failed.replace(
           "XXX",
-          colors.blue(taskName)
+          `${colors.blue(taskName)} - ${colors.gray(`[${task.id}]`)}`
         );
-        throw new Error(`${msg}: ${data?.message}`);
+        user.log.logError(`${msg}: ${data?.message}`);
       }
     } catch (error) {
       if (showLog) {
@@ -136,7 +137,9 @@ class TaskService {
   }
 
   async handleTaskBasic(user, lang, dataTasks, title) {
-    const skipTasks = ["39391eb2-f031-4954-bd8a-e7aecbb1f192"];
+    const skipTasks = user?.database?.skipTasks || [
+      "39391eb2-f031-4954-bd8a-e7aecbb1f192",
+    ];
 
     let tasksMerge = [];
     for (const item of dataTasks) {
@@ -172,7 +175,9 @@ class TaskService {
   }
 
   async handleTaskMultiple(user, lang, dataTasks, title) {
-    const skipTasks = ["39391eb2-f031-4954-bd8a-e7aecbb1f192"];
+    const skipTasks = user?.database?.skipTasks || [
+      "39391eb2-f031-4954-bd8a-e7aecbb1f192",
+    ];
 
     const tasksFilter = dataTasks.filter((task) => {
       if (task?.subTasks) {

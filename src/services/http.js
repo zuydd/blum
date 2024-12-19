@@ -1,5 +1,6 @@
 import axios from "axios";
 import { HttpsProxyAgent } from "https-proxy-agent";
+import TlsClient from "tls-client";
 
 export class HttpService {
   constructor(log, device, proxy = null) {
@@ -62,16 +63,43 @@ export class HttpService {
     return config;
   }
 
-  get(domain, endPoint) {
+  // get(domain, endPoint) {
+  //   const url = this.baseURL[domain] + endPoint;
+  //   const config = this.initConfig();
+  //   return axios.get(url, config);
+  // }
+
+  async get(domain, endPoint) {
+    const session = new TlsClient.Session({
+      clientIdentifier: "chrome_105",
+    });
+
     const url = this.baseURL[domain] + endPoint;
     const config = this.initConfig();
-    return axios.get(url, config);
+    return session.get(url, {
+      headers: config.headers,
+      proxy: this.proxy,
+    });
   }
 
-  post(domain, endPoint, body) {
+  // post(domain, endPoint, body) {
+  //   const url = this.baseURL[domain] + endPoint;
+  //   const config = this.initConfig();
+  //   return axios.post(url, body, config);
+  // }
+
+  async post(domain, endPoint, body) {
+    const session = new TlsClient.Session({
+      clientIdentifier: "chrome_105",
+    });
+
     const url = this.baseURL[domain] + endPoint;
     const config = this.initConfig();
-    return axios.post(url, body, config);
+    return session.post(url, {
+      headers: config.headers,
+      json: body,
+      proxy: this.proxy,
+    });
   }
 
   put(domain, endPoint, body) {

@@ -15,7 +15,7 @@ import taskService from "../services/task.js";
 import tribeService from "../services/tribe.js";
 import userService from "../services/user.js";
 
-const VERSION = "v0.2.5";
+const VERSION = "v0.2.6";
 // Change language
 // vi: Tiếng Việt
 // en: English
@@ -109,7 +109,7 @@ const run = async (user, index) => {
       countRetryLogin = 0;
     }
 
-    await dailyService.checkin(user, lang);
+    await dailyService.handleCheckin(user, lang);
     await tribeService.handleTribe(user, lang);
     if (user.database?.skipHandleTask) {
       user.log.log(colors.yellow(lang?.index?.skip_task_message));

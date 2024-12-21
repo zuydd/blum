@@ -92,7 +92,7 @@
 
 Lúc này tool cũ đã được cập nhật lên phiên bản code mới nhất và có thể tiếp tục sử dụng bình thường
 
-Video hướng dẫn: Coming soon
+Video hướng dẫn: https://youtu.be/nwyrdEVxvPQ
 
 ## 🔄 Lịch sử cập nhật
 

@@ -98,8 +98,13 @@ Video hướng dẫn: https://youtu.be/nwyrdEVxvPQ
 
 > Khi cập nhật phiên bản mới chỉ cần copy thư mục 📁 [data](src/data) của bản cũ ghi đè lại ở bản mới là có thể chạy được mà không cần lấy lại data
 
-> Phiên bản mới nhất: `v0.2.6`
+> Phiên bản mới nhất: `v0.2.7`
 
+<details>
+<summary>v0.2.7 - 📅 23/12/2024</summary>
+  
+- Cập nhật event Noel (tăng số điểm nhận được mỗi lần chơi game)
+</details>
 <details>
 <summary>v0.2.6 - 📅 21/12/2024</summary>
   

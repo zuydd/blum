@@ -49,6 +49,7 @@ class GameService {
 
   async claimGame(user, lang, gameId, eligibleDogs) {
     const randomPoints = user?.database?.randomPoints || [150, 190];
+    const multiplierPoint = user?.database?.multiplierPoint || 1;
     let points = generatorHelper.randomInt(randomPoints[0], randomPoints[1]);
     let dogs = 0;
     if (eligibleDogs) {
@@ -65,7 +66,7 @@ class GameService {
       if (text === "OK") {
         user.log.log(
           `${lang?.game?.claim_success}: ${colors.green(
-            points + user.currency
+            points * multiplierPoint + user.currency
           )}${eligibleDogs ? ` - ${dogs} 🦴` : ""}`
         );
         return true;

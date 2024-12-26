@@ -23,8 +23,7 @@
 > [!CAUTION]
 >
 > - 🛠️ SỬA LỖI KHÔNG CÀI ĐẶT ĐƯỢC THƯ VIỆN
-> - Nếu bạn gặp lỗi khi cài đặt thư viện vui lòng thử cài đặt thêm build tool cho máy tính [[Link Tải]](https://disk.yandex.com/d/gxC6vdfmjZsVSA)
-> - Nếu đã cài build tool nhưng vẫn gặp lỗi khi cài đặt thư viện thì bạn có thể sử dụng phiên bản đã cài sẵn thư viện (lưu ý phiên bản này không cần chạy câu lệnh cài đặt phía trên, tải về giải nén sau đó thiết lập data để chạy) [[Link Tải]](https://disk.yandex.com/d/1KK96NBXywzExw)
+> - Nếu bạn gặp lỗi khi cài đặt thư viện hãy sử dụng phiên bản đã cài sẵn thư viện (lưu ý phiên bản này không cần chạy câu lệnh cài đặt phía trên, tải về giải nén sau đó thiết lập data để chạy) [[Link Tải]](https://disk.yandex.com/d/VSNUUbfkmtHZIw)
 > - Một vài lưu ý: Tool hoạt động ổn với máy tính chạy Windows, nếu bạn dùng MacOS, Ubuntu, Android (Termux) có thể gặp lỗi không thể cài thư viện hoặc chạy tool bị lỗi, chúng tôi đang tìm cách khắc phục
 
 ## 💾 Cách thêm dữ liệu tài khoản

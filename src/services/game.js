@@ -3,6 +3,7 @@ import colors from "colors";
 import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone.js";
 import utc from "dayjs/plugin/utc.js";
+import { HttpsProxyAgent } from "https-proxy-agent";
 import delayHelper from "../helpers/delay.js";
 import generatorHelper from "../helpers/generator.js";
 import authService from "./auth.js";
@@ -57,12 +58,12 @@ class GameService {
       dogs = generatorHelper.randomInt(7, 14) * 0.1;
     }
     const payload = await this.createPlayload(user, lang, gameId, points, dogs);
-
     if (!payload) return;
 
     const body = { payload };
     try {
-      const { text } = await user.http.post(5, "game/claim", body);
+      const { text, data } = await user.http.post(5, "game/claim", body);
+
       if (text === "OK") {
         user.log.log(
           `${lang?.game?.claim_success}: ${colors.green(
@@ -131,6 +132,7 @@ class GameService {
       if (!this.API_KEY) {
         endpointPayload = `${server}blum`;
       }
+      const httpsAgent = new HttpsProxyAgent(user.proxy);
       const { data } = await axios.post(
         endpointPayload,
         {
@@ -142,6 +144,7 @@ class GameService {
           headers: {
             "X-API-KEY": this.API_KEY,
           },
+          httpsAgent,
         }
       );
       let payload = data.payload;

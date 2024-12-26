@@ -98,8 +98,13 @@ Video hướng dẫn: https://youtu.be/nwyrdEVxvPQ
 
 > Khi cập nhật phiên bản mới chỉ cần copy thư mục 📁 [data](src/data) của bản cũ ghi đè lại ở bản mới là có thể chạy được mà không cần lấy lại data
 
-> Phiên bản mới nhất: `v0.2.7`
+> Phiên bản mới nhất: `v0.2.8`
 
+<details>
+<summary>v0.2.8 - 📅 26/12/2024</summary>
+  
+- Tối ưu tạo payload với proxy tránh việc bị server chặn request
+</details>
 <details>
 <summary>v0.2.7 - 📅 23/12/2024</summary>
   

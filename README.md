@@ -20,12 +20,6 @@
 - Bước 2: Giải nén tool
 - Bước 3: Tại thư mục tool vừa giải nén (thư mục có chứa file package.json), chạy lệnh `npm install` để cài đặt các thư viện bổ trợ
 
-> [!CAUTION]
->
-> - 🛠️ SỬA LỖI KHÔNG CÀI ĐẶT ĐƯỢC THƯ VIỆN
-> - Nếu bạn gặp lỗi khi cài đặt thư viện hãy sử dụng phiên bản đã cài sẵn thư viện (lưu ý phiên bản này không cần chạy câu lệnh cài đặt phía trên, tải về giải nén sau đó thiết lập data để chạy) [[Link Tải]](https://disk.yandex.com/d/VSNUUbfkmtHZIw)
-> - Một vài lưu ý: Tool hoạt động ổn với máy tính chạy Windows, nếu bạn dùng MacOS, Ubuntu, Android (Termux) có thể gặp lỗi không thể cài thư viện hoặc chạy tool bị lỗi, chúng tôi đang tìm cách khắc phục
-
 ## 💾 Cách thêm dữ liệu tài khoản
 
 > Tool hỗ trợ cả `user` và `query_id`
@@ -81,24 +75,17 @@
 - Đỗi với lỗi kết nối proxy, hệ thống sẽ cố thử lại sau mỗi 30s, bạn có thể cài đặt giới hạn số lần thử lại bằng cách tìm biến `MAX_RETRY_PROXY = 20` trong file [index.js](src/run/index.js) để điều chỉnh cho phù hợp (mặc định là 20). Khi quá số lần thử kết nối lại hệ thống sẽ dừng auto tài khoản đó và nghi nhận lỗi vào file [log.error.txt](src/data/log.error.txt)
 - Đỗi với lỗi đăng nhập thất bại, hệ thống sẽ cố thử lại sau mỗi 60s, bạn có thể cài đặt giới hạn số lần thử lại bằng cách tìm biến `MAX_RETRY_LOGIN = 20` trong file [index.js](src/run/index.js) để điều chỉnh cho phù hợp (mặc định là 20). Khi quá số lần thử đăng nhập lại hệ thống sẽ dừng auto tài khoản đó và nghi nhận lỗi vào file [log.error.txt](src/data/log.error.txt)
 
-## 🔄 Hướng dẫn nâng cấp phiên bản mới cho trường hợp bị lỗi thư viện
-
-- Bước 1: Tải phiên bản mới nhất [tại đây ⬇️](https://github.com/zuydd/blum/archive/refs/heads/main.zip)
-- Bước 2: Tại thư mục tool cũ, copy thư mục [data](src/data) ra một nơi khác để giữ lại dữ liệu (không phải nhập/lấy lại)
-- Bước 3: Giải nén file vừa tải về
-- Bước 4: Tại thư mục tool mới (file vừa giải nén ra), copy thư mục [src](src) sau đó dán đè lên thư mục src ở tool cũ (đây là bước cập nhật code)
-- Bước 5: Copy lại thư mục data (đã copy ở bước 2) dán đè lên thư mục data ở tool cũ.
-
-Lúc này tool cũ đã được cập nhật lên phiên bản code mới nhất và có thể tiếp tục sử dụng bình thường
-
-Video hướng dẫn: https://youtu.be/nwyrdEVxvPQ
-
 ## 🔄 Lịch sử cập nhật
 
 > Khi cập nhật phiên bản mới chỉ cần copy thư mục 📁 [data](src/data) của bản cũ ghi đè lại ở bản mới là có thể chạy được mà không cần lấy lại data
 
-> Phiên bản mới nhất: `v0.2.8`
+> Phiên bản mới nhất: `v0.2.9`
 
+<details>
+<summary>v0.2.9 - 📅 07/04/2025</summary>
+  
+- Loại bỏ API KEY, miễn phí toàn bộ tính năng
+</details>
 <details>
 <summary>v0.2.8 - 📅 26/12/2024</summary>
   

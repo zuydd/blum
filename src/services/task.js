@@ -106,15 +106,18 @@ class TaskService {
       taskName = `${task.title} ${task.target} ${task.postfix}`;
     }
     try {
-      const { data, ok } = await user.http.post(4, param, {});
+      const res = await user.http.post(4, param, {});
+      const { data } = res;
 
-      if (ok && data && data.status === "FINISHED") {
+      if (data && data.status === "FINISHED") {
         if (showLog) {
           const msg = lang?.task?.do_task_success.replace(
             "XXX",
             colors.blue(taskName)
           );
-          user.log.log(`${msg}: ${colors.green(task.reward + user.currency)}`);
+          user.log.log(
+            `${msg}: ${colors.green(task.reward.value + user.currency)}`
+          );
         }
         return true;
       } else {
@@ -254,7 +257,7 @@ class TaskService {
         if (complete === "NOT_STARTED") {
           tasksErrorStart.push(task);
         }
-        await delayHelper.delay(3);
+        await delayHelper.delay(5);
       }
 
       if (complete === "READY_FOR_VERIFY") {
@@ -270,6 +273,7 @@ class TaskService {
 
     if (tasksErrorStart.length || tasksErrorClaim.length) {
       user.log.log(colors.magenta(lang?.task?.retry_task_error));
+      await delayHelper.delay(20);
       for (const task of tasksErrorStart) {
         let complete = task.status;
         if (complete === "NOT_STARTED" && task.type !== "PROGRESS_TARGET") {
@@ -303,7 +307,7 @@ class TaskService {
       }
       if (complete === "NOT_STARTED" && task.type !== "PROGRESS_TARGET") {
         complete = await this.startTask(user, lang, task);
-        await delayHelper.delay(3);
+        await delayHelper.delay(10);
       }
       if (complete === "READY_FOR_VERIFY") {
         complete = await this.verifyTask(user, lang, task);

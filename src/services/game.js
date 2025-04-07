@@ -1,11 +1,10 @@
-import axios from "axios";
 import colors from "colors";
 import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone.js";
 import utc from "dayjs/plugin/utc.js";
-import { HttpsProxyAgent } from "https-proxy-agent";
 import delayHelper from "../helpers/delay.js";
 import generatorHelper from "../helpers/generator.js";
+import { pack, proof } from "../helpers/payload-blum.js";
 import authService from "./auth.js";
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -27,6 +26,9 @@ class GameService {
   async playGame(user, lang, delay) {
     try {
       const { data } = await user.http.post(5, "game/play", {});
+      if (data.message === "another game in progress") {
+        return 3;
+      }
 
       if (data) {
         user.log.log(
@@ -48,27 +50,22 @@ class GameService {
     }
   }
 
-  async claimGame(user, lang, gameId, eligibleDogs) {
+  async claimGame(user, lang, gameId) {
     const randomPoints = user?.database?.randomPoints || [150, 190];
     const multiplierPoint = user?.database?.multiplierPoint || 1;
     let points = generatorHelper.randomInt(randomPoints[0], randomPoints[1]);
-    let dogs = 0;
-    if (eligibleDogs) {
-      points = generatorHelper.randomInt(150, 180);
-      dogs = generatorHelper.randomInt(7, 14) * 0.1;
-    }
-    const payload = await this.createPlayload(user, lang, gameId, points, dogs);
+    const payload = await this.createPlayload(user, lang, gameId, points);
     if (!payload) return;
 
     const body = { payload };
     try {
       const { text, data } = await user.http.post(5, "game/claim", body);
 
-      if (text === "OK") {
+      if (data === "OK") {
         user.log.log(
           `${lang?.game?.claim_success}: ${colors.green(
             points * multiplierPoint + user.currency
-          )}${eligibleDogs ? ` - ${dogs} 🦴` : ""}`
+          )}`
         );
         return true;
       } else {
@@ -82,96 +79,37 @@ class GameService {
     }
   }
 
-  async createPlayload(user, lang, gameId, points, dogs) {
-    let server = "";
-    if (!this.API_KEY) {
-      const servers =
-        user?.database?.payloadServer?.filter(
-          (server) => server.status === 1
-        ) || [];
-      if (servers.length) {
-        const index = generatorHelper.randomInt(0, servers.length - 1);
-        server = `https://${servers[index].id}.vercel.app/api/`;
-      } else {
-        console.log(colors.yellow(lang?.game?.not_found_server_free));
-        return null;
-      }
-    } else {
-      const isPro = this.API_KEY.includes("pro");
-      if (isPro) {
-        const servers =
-          user?.database?.server?.pro?.filter(
-            (server) => server.status === 1
-          ) || [];
+  async createPlayload(user, lang, gameId, points) {
+    const resultProof = await proof(gameId);
+    const MULTIPLIER_POINT = user?.database?.multiplierPoint || 1;
 
-        if (servers.length) {
-          const randomServer = generatorHelper.randomInt(0, servers.length - 1);
-          server = servers[randomServer].url;
-          // server = "http://localhost:3000/api/";
-        } else {
-          return null;
-        }
-      } else {
-        const servers =
-          user?.database?.server?.free?.filter(
-            (server) => server.status === 1
-          ) || [];
+    const challenge = {
+      id: generatorHelper.uuid(),
+      ...resultProof,
+    };
 
-        if (servers.length) {
-          const randomServer = generatorHelper.randomInt(0, servers.length - 1);
-          server = servers[randomServer].url;
-        } else {
-          console.log(colors.yellow(lang?.game?.not_found_server_free));
-          return null;
-        }
-      }
-    }
+    const earnedAssets = {
+      CLOVER: {
+        clicks: parseInt(points),
+      },
+      FREEZE: {
+        clicks: generatorHelper.randomInt(0, 2),
+      },
+      BOMB: {
+        clicks: 0,
+      },
+    };
 
-    try {
-      let endpointPayload = `${server}blum/payload`;
-      if (!this.API_KEY) {
-        endpointPayload = `${server}blum`;
-      }
-      const httpsAgent = new HttpsProxyAgent(user.proxy);
-      const { data } = await axios.post(
-        endpointPayload,
-        {
-          game_id: gameId,
-          points,
-          dogs,
-        },
-        {
-          headers: {
-            "X-API-KEY": this.API_KEY,
-          },
-          httpsAgent,
-        }
-      );
-      let payload = data.payload;
-      let remaining_quota = 999999;
-      if (this.API_KEY) {
-        payload = data.data.payload;
-        remaining_quota = data.data.remaining_quota;
-        this.setQuota(remaining_quota);
-      }
+    const totalPoints = {
+      BP: {
+        amount: parseInt(points) * MULTIPLIER_POINT,
+      },
+    };
 
-      if (payload) {
-        return payload;
-      }
-      throw new Error(`${lang?.game?.create_payload_failed}: ${data?.error}`);
-    } catch (error) {
-      console.log(colors.red(error?.response?.data?.message));
-      return null;
-    }
-  }
+    const resultPack = await pack(gameId, challenge, totalPoints, earnedAssets);
 
-  async eligibilityDogs(user) {
-    try {
-      const { data } = await user.http.get(5, "game/eligibility/dogs_drop");
-      return data.eligible;
-    } catch (error) {
-      return false;
-    }
+    const payload = resultPack;
+    return payload;
   }
 
   checkTimePlayGame(time) {
@@ -207,15 +145,11 @@ class GameService {
     if (isInTimeRange) {
       const profile = await authService.getProfile(user, lang);
       if (profile) playPasses = profile?.playPasses;
-      const eligibleDogs = await this.eligibilityDogs(user);
-      const textDropDogs =
-        (eligibleDogs ? lang?.game?.can : lang?.game?.notcan) +
-        ` ${lang?.game?.claim_dogs} 🦴`;
       const msg = lang?.game?.game_remaining.replace(
         "XXX",
         colors.blue(playPasses)
       );
-      user.log.log(`${msg} ${colors.magenta(`[${textDropDogs}]`)}`);
+      user.log.log(`${msg}`);
       let gameCount = playPasses || 0;
       let errorCount = 0;
       while (gameCount > 0) {
@@ -223,11 +157,11 @@ class GameService {
           gameCount = 0;
           continue;
         }
-        if (!this.API_KEY) {
-          user.log.log(colors.yellow(lang?.game?.no_api_key));
-          gameCount = 0;
-          continue;
-        }
+        // if (!this.API_KEY) {
+        //   user.log.log(colors.yellow(lang?.game?.no_api_key));
+        //   gameCount = 0;
+        //   continue;
+        // }
         if (this.REMAINING_QUOTA <= 0) {
           user.log.log(colors.yellow(lang?.game?.key_limit_used));
           gameCount = 0;
@@ -240,16 +174,20 @@ class GameService {
           gameCount = 0;
           continue;
         }
+        if (gameId === 3) {
+          user.log.log(
+            colors.yellow(
+              "Đang trong một lượt chơi khác vui lòng chờ và thử lại"
+            )
+          );
+          await delayHelper.delay(180);
+          continue;
+        }
         if (gameId) {
           errorCount = 0;
 
           await delayHelper.delay(delay);
-          const statusClaim = await this.claimGame(
-            user,
-            lang,
-            gameId,
-            eligibleDogs
-          );
+          const statusClaim = await this.claimGame(user, lang, gameId);
           if (!statusClaim) {
             errorCount++;
           }
